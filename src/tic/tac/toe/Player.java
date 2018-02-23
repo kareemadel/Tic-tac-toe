@@ -5,6 +5,8 @@
  */
 package tic.tac.toe;
 
+import java.util.UUID;
+
 /**
  *
  * @author Majid
@@ -12,7 +14,7 @@ package tic.tac.toe;
 
 /**/
 public class Player{
-    int id;
+    UUID uuid = UUID.randomUUID();
     char icon;
     Player opponent;
 }

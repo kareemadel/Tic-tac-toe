@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author kareemadel
+ * @author Team7
  */
 public class TicTacToe extends Application {
     

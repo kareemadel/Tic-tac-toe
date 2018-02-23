@@ -10,6 +10,7 @@ package tic.tac.toe;
  * @author Majid
  */
 import java.util.UUID;
+import java.util.ArrayList;
 public class Game {
 
     /*Game Id : This will generate a universal unique id for the game */
@@ -26,17 +27,14 @@ public class Game {
     public int mode;
     
     /*Array of chars for the board intialized by zeros*/
-    public char[] board = {
-        0, 0, 0,
-        0, 0, 0,
-        0, 0, 0};
+    public char[] board = new char[9];
 
     
     /* Steps is a 2d Array [ [ location as char , player SYmbol X or O ] , [ , ] ] 
                              |                                         | 
                              |----------First Step in The Game---------|
     */
-    public char[][] steps;
+    private ArrayList<ArrayList<Character>> steps = new ArrayList<>();
     
     /* Current Player is used to determine whose turn is in the game */
     Player currentPlayer;
@@ -48,34 +46,48 @@ public class Game {
     /*Methods*/
     
     /* check whether the PLayer won or not  */
-    public boolean Winner() {
-        return
-            (board[0] != 0 && board[0] == board[1] && board[0] == board[2])
-          ||(board[3] != 0 && board[3] == board[4] && board[3] == board[5])
-          ||(board[6] != 0 && board[6] == board[7] && board[6] == board[8])
-          ||(board[0] != 0 && board[0] == board[3] && board[0] == board[6])
-          ||(board[1] != 0 && board[1] == board[4] && board[1] == board[7])
-          ||(board[2] != 0 && board[2] == board[5] && board[2] == board[8])
-          ||(board[0] != 0 && board[0] == board[4] && board[0] == board[8])
-          ||(board[2] != 0 && board[2] == board[4] && board[2] == board[6]);
+    public boolean isWinner() {
+        int pos = (int) steps.get(steps.size() - 1).get(0);
+        char icon = steps.get(steps.size() - 1).get(1);
+        int col, row, diag, rdiag;
+        col = row = diag = rdiag = 0;
+        for (int i = 0; i < 3; i++) {
+            if (board[pos % 3 + i * 3] == icon)
+            {
+                col++;
+            }
+            if (board[pos / 3 + i] == icon) {
+                row++;
+            }
+        }
+        if (pos % 2 == 0) {
+            for (int i = 0; i < 3; i++) {
+                if (board[i * 4] == icon) {
+                    diag++;
+                }
+                if (board[i*2 + 2] == icon) {
+                    rdiag++;
+                }
+            }
+        }
+        return col == 3 || row == 3 || diag == 3 || rdiag == 3;
     }
 
     /* Check whether the board is filled up to indicate a tie in case of 
         no winner or loser detected
     */
     public boolean isFull() {
-        for (int i = 0; i < board.length; i++) {
-            if (board[i] == 0) {
-                return false;
-            }
-        }
-        return true;
+        return steps.size() == 9;
     }
 
     /* Check if the move is legal and perform it if so */
     public synchronized boolean move(int location, Player player) {
         if (player == currentPlayer && board[location] == 0) {
             board[location] = currentPlayer.icon;
+            ArrayList<Character> step = new ArrayList<>();
+            step.add((char) location);
+            step.add(currentPlayer.icon);
+            steps.add(step);
             currentPlayer = currentPlayer.opponent;
             return true;
         }
