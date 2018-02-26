@@ -22,6 +22,7 @@ public class TicTacToe extends Application {
     Player pl1;
     Player pl2;
     Tic root = new Tic();
+    Menu root1 = new Menu();
     Alert talert = new Alert(Alert.AlertType.INFORMATION);
     private int xCount = 0;
     private int oCount = 0;
@@ -34,8 +35,29 @@ public class TicTacToe extends Application {
         pl2 = game.player2;
         
         Scene scene = new Scene(root, 699, 609);
+        Scene scene1 = new Scene(root1,699,609);
+        primaryStage.setScene(scene1);
+        primaryStage.show(); 
+        primaryStage.setResizable(false);
+        root1.label.setOnMouseClicked((MouseEvent event) ->{
+        primaryStage.hide();  
         primaryStage.setScene(scene);
-        primaryStage.show();     
+        primaryStage.show(); 
+        
+        });
+        root1.label0.setOnMouseClicked((MouseEvent event) ->{
+        primaryStage.hide();
+        primaryStage.setScene(scene);
+        primaryStage.show(); 
+        root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
+        });
+        root1.label1.setOnMouseClicked((MouseEvent event) ->{
+        primaryStage.hide();
+        primaryStage.setScene(scene);
+        primaryStage.show(); 
+        root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("icon-person-blue.png").toExternalForm()));
+        });    
+        primaryStage.setResizable(false);
         root.imageView.setOnMouseClicked((MouseEvent event) -> {
             if (game.move(0, game.currentPlayer)) {
                 currentGame.computerMove();

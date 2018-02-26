@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 
-public class Tic extends AnchorPane {
+public  class Tic extends AnchorPane {
 
     protected final Pane pane;
     protected final GridPane gridPane;
@@ -82,6 +82,7 @@ public class Tic extends AnchorPane {
         setId("AnchorPane");
         setPrefHeight(400.0);
         setPrefWidth(600.0);
+        setScaleShape(false);
 
         pane.setMaxHeight(USE_PREF_SIZE);
         pane.setMaxWidth(USE_PREF_SIZE);
