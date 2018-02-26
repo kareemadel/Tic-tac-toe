@@ -9,12 +9,19 @@ import java.util.UUID;
 
 /**
  *
- * @author Majid
+ * @author Team7
  */
 
 /**/
 public class Player{
-    UUID uuid = UUID.randomUUID();
-    char icon;
-    Player opponent;
+    UUID uuid;
+    Board.State icon;
+    
+    public Player() {
+         uuid = UUID.randomUUID();
+    }
+    
+    public Player(String name) {
+         this.uuid = UUID.nameUUIDFromBytes(name.getBytes());
+    }
 }
