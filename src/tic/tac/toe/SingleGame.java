@@ -18,21 +18,13 @@ import java.util.logging.Logger;
  * @author Team7
  */
 public class SingleGame extends Game implements Serializable{
+  
     PipedInputStream pin;
     PipedOutputStream pout;
     public SingleGame() {
         super(new Player("name"), new Player("computer"));
+        mode = 0;
         currentPlayer = player1;
-        try {
-            pin = new PipedInputStream();
-            pout = new PipedOutputStream(pin);
-        } catch (IOException ex) {
-            Logger.getLogger(SingleGame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-//        Thread th = new Thread(this);
-//        th.start();
-//        Thread th = new Thread(this);
-//        th.start();
     }
     
     public void computerMove() {

@@ -40,75 +40,95 @@ public class TicTacToe extends Application {
         primaryStage.show(); 
         primaryStage.setResizable(false);
         root1.label.setOnMouseClicked((MouseEvent event) ->{
-        primaryStage.hide();  
-        primaryStage.setScene(scene);
-        primaryStage.show(); 
-        
+            game.mode = 0;
+            primaryStage.hide();  
+            primaryStage.setScene(scene);
+            primaryStage.show(); 
         });
         root1.label0.setOnMouseClicked((MouseEvent event) ->{
-        primaryStage.hide();
-        primaryStage.setScene(scene);
-        primaryStage.show(); 
-        root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
+            primaryStage.hide();
+            primaryStage.setScene(scene);
+            primaryStage.show(); 
+            root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
         });
         root1.label1.setOnMouseClicked((MouseEvent event) ->{
-        primaryStage.hide();
-        primaryStage.setScene(scene);
-        primaryStage.show(); 
-        root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("icon-person-blue.png").toExternalForm()));
+            game.mode = 1;
+            primaryStage.hide();
+            primaryStage.setScene(scene);
+            primaryStage.show(); 
+            root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("icon-person-blue.png").toExternalForm()));
         });    
         primaryStage.setResizable(false);
         root.imageView.setOnMouseClicked((MouseEvent event) -> {
             if (game.move(0, game.currentPlayer)) {
+                if (game.mode == 0 ){
                 currentGame.computerMove();
+                }
                 redraw();
             }
         });
          root.imageView0.setOnMouseClicked((MouseEvent event) -> {
             if (game.move(1, game.currentPlayer)) {
+                if (game.mode == 0 ){
                 currentGame.computerMove();
+                }
+           
                 redraw();
             }
         });
       root.imageView1.setOnMouseClicked((MouseEvent event) -> {
             if (game.move(2, game.currentPlayer)) {
+                if (game.mode == 0 ){
                 currentGame.computerMove();
+                }
                 redraw();
             }
         });
         root.imageView2.setOnMouseClicked((MouseEvent event) -> {
             if (game.move(3, game.currentPlayer)) {
+                if (game.mode == 0 ){
                 currentGame.computerMove();
+                }
                 redraw();
             }
         });
            root.imageView3.setOnMouseClicked((MouseEvent event) -> {
             if (game.move(4, game.currentPlayer)) {
+                if (game.mode == 0 ){
                 currentGame.computerMove();
+                }
                 redraw();
             }
         });
           root.imageView4.setOnMouseClicked((MouseEvent event) -> {
             if (game.move(5, game.currentPlayer)) {
+                if (game.mode == 0 ){
                 currentGame.computerMove();
+                }
                 redraw();
             }
         });
           root.imageView5.setOnMouseClicked((MouseEvent event) -> {
             if (game.move(6, game.currentPlayer)) {
+                if (game.mode == 0 ){
                 currentGame.computerMove();
+                }
                 redraw();
             }
         });
             root.imageView6.setOnMouseClicked((MouseEvent event) -> {
             if (game.move(7, game.currentPlayer)) {
+                if (game.mode == 0 ){
                 currentGame.computerMove();
+                }
                 redraw();
             }
         });
             root.imageView7.setOnMouseClicked((MouseEvent event) -> {
             if (game.move(8, game.currentPlayer)) {
+                if (game.mode == 0 ){
                 currentGame.computerMove();
+                }
                 redraw();
             }
         });

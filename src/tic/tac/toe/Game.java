@@ -43,6 +43,8 @@ public class Game implements Serializable {
      */
     int currentMove;
     
+    int mode;
+    
     /**
      * Players
      */

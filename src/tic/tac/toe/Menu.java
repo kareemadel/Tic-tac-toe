@@ -11,7 +11,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 
 public class Menu extends AnchorPane {
-
+   
     protected final Pane pane;
     protected final GridPane gridPane;
     protected final ColumnConstraints columnConstraints;
