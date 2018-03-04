@@ -5,11 +5,15 @@
  */
 package tic.tac.toe;
 
+import java.util.Optional;
 import javafx.scene.input.MouseEvent;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -44,6 +48,7 @@ public class TicTacToe extends Application {
             primaryStage.hide();  
             primaryStage.setScene(scene);
             primaryStage.show(); 
+            root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("computer.png").toExternalForm()));
         });
         root1.label0.setOnMouseClicked((MouseEvent event) ->{
             primaryStage.hide();
@@ -57,8 +62,26 @@ public class TicTacToe extends Application {
             primaryStage.setScene(scene);
             primaryStage.show(); 
             root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("icon-person-blue.png").toExternalForm()));
-        });    
+        }); 
+        root1.imageView3.setOnMouseClicked((MouseEvent event) ->{
+             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Exit");
+                alert.setContentText("Do you want to Exit from the game ?");
+                ButtonType ok = new ButtonType("Ok",ButtonBar.ButtonData.YES);
+                ButtonType NO = new ButtonType("NO",ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert.getButtonTypes().setAll(ok,NO);
+                Optional<ButtonType> result = alert.showAndWait();
+                if(result.get() == ok)
+                {
+                 primaryStage.close();
+                 System.exit(0);
+                }
+                if(result.get() == NO){
+                 alert.close();
+                }
+            }); 
         primaryStage.setResizable(false);
+        
         root.imageView.setOnMouseClicked((MouseEvent event) -> {
             if (game.move(0, game.currentPlayer)) {
                 if (game.mode == 0 ){
@@ -131,6 +154,34 @@ public class TicTacToe extends Application {
                 }
                 redraw();
             }
+        });
+           root.imageView9.setOnMouseClicked((MouseEvent event) -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Exit");
+                alert.setContentText("Do you want to back to the Menu?");
+                ButtonType ok = new ButtonType("Ok",ButtonBar.ButtonData.YES);
+                ButtonType exit = new ButtonType("Exit",ButtonBar.ButtonData.NO);
+                ButtonType cancel = new ButtonType("Cancel",ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert.getButtonTypes().setAll(ok,exit,cancel);
+                Optional<ButtonType> result = alert.showAndWait();
+                if(result.get() == ok)
+                {
+                 primaryStage.hide();
+                 primaryStage.setScene(scene1);
+                 primaryStage.show(); 
+                }
+                if(result.get() == exit){
+                primaryStage.close();
+                System.exit(0);
+                }
+
+        });
+            root.imageView8.setOnMouseClicked((MouseEvent event) -> {
+                System.out.println("reset");
+//                System.out.println(game.board.toArray()[1][1]);
+                game.board.reset();
+//                System.out.println(game.board.toArray()[1][1]);
+                redraw();
         });
     }
 
@@ -280,15 +331,17 @@ public class TicTacToe extends Application {
             root.imageView7.setLayoutY(13.0);
             root.imageView7.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
         }
-//        System.out.println(game.currentPlayer.icon);
         if(game.isWinner()) {
             talert.setHeaderText("The Winner");
             if (game.currentPlayer.icon == Board.State.X) {
                 talert.setContentText("player X wins");
                 xCount++;
+                root.label.setText(String.valueOf(xCount));
             } else {
                 talert.setContentText("player O wins");
                 oCount++;
+                root.label0.setText(String.valueOf(oCount));
+
             }
             talert.showAndWait();
         } else if (game.isFull()) {

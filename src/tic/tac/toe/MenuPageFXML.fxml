@@ -14,7 +14,7 @@
    <children>
       <Pane prefHeight="609.0" prefWidth="699.0" style="-fx-background-color: #6795C2;">
          <children>
-            <GridPane layoutX="177.0" layoutY="245.0" prefHeight="60.0" prefWidth="351.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0); -fx-background-color: rgba(64, 116, 167,1);">
+            <GridPane layoutX="178.0" layoutY="230.0" prefHeight="60.0" prefWidth="351.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0); -fx-background-color: rgba(64, 116, 167,1);">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -22,28 +22,19 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Label layoutX="-1.0" prefHeight="60.0" prefWidth="351.0" text="      One VS Computer" textFill="#f5f4f4">
-                           <font>
-                              <Font size="28.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
+                  <Label prefHeight="60.0" prefWidth="351.0" text="      One VS Computer" textAlignment="CENTER" textFill="#f5f4f4">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
-            <ImageView fitHeight="172.0" fitWidth="404.0" layoutX="148.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="161.0" fitWidth="492.0" layoutX="132.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@logo.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="63.0" fitWidth="60.0" layoutX="439.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@XOIcon.png" />
-               </image>
-            </ImageView>
-            <GridPane layoutX="177.0" layoutY="448.0" prefHeight="60.0" prefWidth="351.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0); -fx-background-color: rgba(64, 116, 167,1);">
+            <GridPane layoutX="174.0" layoutY="414.0" prefHeight="60.0" prefWidth="351.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0); -fx-background-color: rgba(64, 116, 167,1);">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
@@ -51,49 +42,47 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Label prefHeight="60.0" prefWidth="351.0" text="     One VS One Onine" textFill="#f5f4f4">
-                           <font>
-                              <Font size="28.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
+                  <Label prefHeight="60.0" prefWidth="351.0" text="     One VS One Onine" textFill="#f5f4f4">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
-            <GridPane layoutX="177.0" layoutY="346.0" prefHeight="60.0" prefWidth="351.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0); -fx-background-color: rgba(64, 116, 167,1);">
+            <GridPane layoutX="178.0" layoutY="324.0" prefHeight="60.0" prefWidth="351.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0); -fx-background-color: rgba(64, 116, 167,1);">
                <columnConstraints>
+                  <ColumnConstraints />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Label prefHeight="60.0" prefWidth="351.0" text="          One VS One " textFill="#f5f4f4">
-                           <font>
-                              <Font size="28.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
+                  <Label prefHeight="60.0" prefWidth="351.0" text="          One VS One " textFill="#f5f4f4" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="110.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);">
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="105.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);">
                <image>
                   <Image url="@computer.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="107.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 30, 0.5, 0, 0);">
+            <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="103.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 30, 0.5, 0, 0);">
                <image>
                   <Image url="@online.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="69.0" fitWidth="71.0" layoutX="99.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 30, 0.5, 0, 0);">
+            <ImageView fitHeight="69.0" fitWidth="71.0" layoutX="100.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 30, 0.5, 0, 0);">
                <image>
                   <Image url="@two.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="69.0" layoutX="323.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 30, 0.5, 0, 0);">
+               <image>
+                  <Image url="@close-icon.png" />
                </image>
             </ImageView>
          </children>
