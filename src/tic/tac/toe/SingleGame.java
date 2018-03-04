@@ -29,10 +29,7 @@ public class SingleGame extends Game implements Serializable{
     
     public void computerMove() {
         if(!isFull()) {
-            System.out.println("Now in Comp.");
-            System.out.println(this.currentPlayer.icon);
             AlphaBetaAdvanced.run(currentPlayer.icon, board, board.getAvailableMoves().size(), this);
-            System.out.println(this.currentPlayer.icon);
         }
     }
     

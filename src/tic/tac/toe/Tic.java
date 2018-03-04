@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 
-public  class Tic extends AnchorPane {
+public class Tic extends AnchorPane {
 
     protected final Pane pane;
     protected final GridPane gridPane;
@@ -44,6 +44,7 @@ public  class Tic extends AnchorPane {
     protected final Label label;
     protected final Label label0;
     protected final ImageView imageView12;
+    protected final ImageView[] cells;
 
     public Tic() {
 
@@ -323,6 +324,8 @@ public  class Tic extends AnchorPane {
         pane.getChildren().add(label0);
         pane.getChildren().add(imageView12);
         getChildren().add(pane);
+
+        cells = new ImageView[] {imageView, imageView0, imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7};
 
     }
 }
