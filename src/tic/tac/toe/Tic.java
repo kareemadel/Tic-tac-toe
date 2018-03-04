@@ -43,6 +43,7 @@ public  class Tic extends AnchorPane {
     protected final ImageView imageView11;
     protected final Label label;
     protected final Label label0;
+    protected final ImageView imageView12;
 
     public Tic() {
 
@@ -78,6 +79,7 @@ public  class Tic extends AnchorPane {
         imageView11 = new ImageView();
         label = new Label();
         label0 = new Label();
+        imageView12 = new ImageView();
 
         setId("AnchorPane");
         setPrefHeight(400.0);
@@ -230,7 +232,7 @@ public  class Tic extends AnchorPane {
         imageView8.setFitHeight(48.0);
         imageView8.setFitWidth(53.0);
         imageView8.setId("refresh");
-        imageView8.setLayoutX(261.0);
+        imageView8.setLayoutX(212.0);
         imageView8.setLayoutY(539.0);
         imageView8.setPickOnBounds(true);
         imageView8.setPreserveRatio(true);
@@ -240,7 +242,7 @@ public  class Tic extends AnchorPane {
         imageView9.setFitHeight(48.0);
         imageView9.setFitWidth(66.0);
         imageView9.setId("exit");
-        imageView9.setLayoutX(374.0);
+        imageView9.setLayoutX(409.0);
         imageView9.setLayoutY(539.0);
         imageView9.setPickOnBounds(true);
         imageView9.setPreserveRatio(true);
@@ -279,6 +281,15 @@ public  class Tic extends AnchorPane {
         label0.setStyle("-fx-font-size: 18; -fx-text-fill: white;");
         label0.setText("0");
 
+        imageView12.setFitHeight(48.0);
+        imageView12.setFitWidth(48.0);
+        imageView12.setLayoutX(311.0);
+        imageView12.setLayoutY(539.0);
+        imageView12.setPickOnBounds(true);
+        imageView12.setPreserveRatio(true);
+        imageView12.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
+        imageView12.setImage(new Image(getClass().getResource("replay.png").toExternalForm()));
+
         gridPane.getColumnConstraints().add(columnConstraints);
         gridPane.getColumnConstraints().add(columnConstraints0);
         gridPane.getColumnConstraints().add(columnConstraints1);
@@ -310,6 +321,7 @@ public  class Tic extends AnchorPane {
         pane.getChildren().add(imageView11);
         pane.getChildren().add(label);
         pane.getChildren().add(label0);
+        pane.getChildren().add(imageView12);
         getChildren().add(pane);
 
     }

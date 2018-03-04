@@ -6,13 +6,17 @@
 package tic.tac.toe;
 
 import java.net.Socket;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.input.MouseEvent;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -21,11 +25,12 @@ import javafx.stage.Stage;
  * @author shaimaanabil
  */
 public class TicTacToe extends Application {
-    private netGame game;
     Tic root = new Tic();
+    Menu root1 = new Menu();
     Alert talert = new Alert(Alert.AlertType.INFORMATION);
     private int xCount = 0;
     private int oCount = 0;
+    private netGame game;
     boolean isListener = true;
     int port = 1337;
     Server server = null;
@@ -63,28 +68,53 @@ public class TicTacToe extends Application {
             // initialize new game with the correct socket and host statu
             game = new netGame(gameSocket, isListener);
         }
-
-        Scene scene = new Scene(root, 699, 609);
-        primaryStage.setScene(scene);
-        primaryStage.show();     
+        Scene scene = new Scene(root, 699, 609);        
+        Scene scene1 = new Scene(root1,699,609);
+        primaryStage.setScene(scene1);
+        primaryStage.show();
+        root1.label.setOnMouseClicked((MouseEvent event) ->{
+            game.mode = 0;
+            primaryStage.hide();  
+            primaryStage.setScene(scene);
+            primaryStage.show(); 
+            root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("computer.png").toExternalForm()));
+        });
+        root1.label0.setOnMouseClicked((MouseEvent event) ->{
+            primaryStage.hide();
+            primaryStage.setScene(scene);
+            primaryStage.show(); 
+            root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
+        });
+        root1.label1.setOnMouseClicked((MouseEvent event) ->{
+            game.mode = 1;
+            primaryStage.hide();
+            primaryStage.setScene(scene);
+            primaryStage.show(); 
+            root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("icon-person-blue.png").toExternalForm()));
+        }); 
+        root1.imageView3.setOnMouseClicked((MouseEvent event) ->{
+             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Exit");
+                alert.setContentText("Do you want to Exit from the game ?");
+                ButtonType ok = new ButtonType("Ok",ButtonBar.ButtonData.YES);
+                ButtonType NO = new ButtonType("NO",ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert.getButtonTypes().setAll(ok,NO);
+                Optional<ButtonType> result = alert.showAndWait();
+                if(result.get() == ok)
+                {
+                 primaryStage.close();
+                 System.exit(0);
+                }
+                if(result.get() == NO){
+                 alert.close();
+                }
+            }); 
+        primaryStage.setResizable(false);
+        
         root.imageView.setOnMouseClicked((MouseEvent event) -> {
             if (game.myTurn()) {
                 try {
                     game.move(0);
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                redraw();
-            }
-            else {
-                String move = null;
-                try {
-                    move = game.readMessage();
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    game.move(Integer.parseInt(move));
                 } catch (Exception ex) {
                     Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -100,39 +130,11 @@ public class TicTacToe extends Application {
                 }
                 redraw();
             }
-            else {
-                String move = null;
-                try {
-                    move = game.readMessage();
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    game.move(Integer.parseInt(move));
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                redraw();
-            }
         });
       root.imageView1.setOnMouseClicked((MouseEvent event) -> {
             if (game.myTurn()) {
                 try {
                     game.move(2);
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                redraw();
-            }
-            else {
-                String move = null;
-                try {
-                    move = game.readMessage();
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    game.move(Integer.parseInt(move));
                 } catch (Exception ex) {
                     Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -148,39 +150,11 @@ public class TicTacToe extends Application {
                 }
                 redraw();
             }
-            else {
-                String move = null;
-                try {
-                    move = game.readMessage();
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    game.move(Integer.parseInt(move));
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                redraw();
-            }
         });
            root.imageView3.setOnMouseClicked((MouseEvent event) -> {
             if (game.myTurn()) {
                 try {
                     game.move(4);
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                redraw();
-            }
-            else {
-                String move = null;
-                try {
-                    move = game.readMessage();
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    game.move(Integer.parseInt(move));
                 } catch (Exception ex) {
                     Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -196,39 +170,11 @@ public class TicTacToe extends Application {
                 }
                 redraw();
             }
-            else {
-                String move = null;
-                try {
-                    move = game.readMessage();
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    game.move(Integer.parseInt(move));
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                redraw();
-            }
         });
           root.imageView5.setOnMouseClicked((MouseEvent event) -> {
             if (game.myTurn()) {
                 try {
                     game.move(6);
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                redraw();
-            }
-            else {
-                String move = null;
-                try {
-                    move = game.readMessage();
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    game.move(Integer.parseInt(move));
                 } catch (Exception ex) {
                     Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -244,20 +190,6 @@ public class TicTacToe extends Application {
                 }
                 redraw();
             }
-            else {
-                String move = null;
-                try {
-                    move = game.readMessage();
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    game.move(Integer.parseInt(move));
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                redraw();
-            }
         });
             root.imageView7.setOnMouseClicked((MouseEvent event) -> {
             if (game.myTurn()) {
@@ -268,21 +200,56 @@ public class TicTacToe extends Application {
                 }
                 redraw();
             }
-            else {
-                String move = null;
-                try {
-                    move = game.readMessage();
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+        });
+           root.imageView9.setOnMouseClicked((MouseEvent event) -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Exit");
+                alert.setContentText("Do you want to back to the Menu?");
+                ButtonType ok = new ButtonType("Ok",ButtonBar.ButtonData.YES);
+                ButtonType exit = new ButtonType("Exit",ButtonBar.ButtonData.NO);
+                ButtonType cancel = new ButtonType("Cancel",ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert.getButtonTypes().setAll(ok,exit,cancel);
+                Optional<ButtonType> result = alert.showAndWait();
+                if(result.get() == ok)
+                {
+                 primaryStage.hide();
+                 primaryStage.setScene(scene1);
+                 primaryStage.show(); 
                 }
-                try {
-                    game.move(Integer.parseInt(move));
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+                if(result.get() == exit){
+                primaryStage.close();
+                System.exit(0);
                 }
+
+        });
+            root.imageView8.setOnMouseClicked((MouseEvent event) -> {
+                System.out.println("reset");
+//                System.out.println(game.board.toArray()[1][1]);
+                game.board.reset();
+//                System.out.println(game.board.toArray()[1][1]);
                 redraw();
+        });
+        
+        Thread guiUpdateThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String move = null;
+                while (true) {
+                    try {
+                        move = game.readMessage();
+                    } catch (Exception ex) {
+                        Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        game.move(Integer.parseInt(move));
+                    } catch (Exception ex) {
+                        Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    redraw();
+                }
             }
         });
+        guiUpdateThread.start();
     }
 
     public void redraw() {
@@ -431,21 +398,20 @@ public class TicTacToe extends Application {
             root.imageView7.setLayoutY(13.0);
             root.imageView7.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
         }
-//        System.out.println(game.currentPlayer.icon);
-        if(game.winner()) {
-            talert.setHeaderText("The Winner");
-            if ( game.myTurn()) {
-                talert.setContentText("player X wins");
-                xCount++;
-            } else {
-                talert.setContentText("player O wins");
-                oCount++;
-            }
-            talert.showAndWait();
-        } else if (game.isFull()) {
-            talert.setHeaderText("Draw");
-            talert.setContentText("Draw");
-        }
+        if (game.winner()) {
+           talert.setHeaderText("The Winner");
+           if (game.myTurn()) {
+               talert.setContentText("player X wins");
+               xCount++;
+           } else {
+               talert.setContentText("player O wins");
+               oCount++;
+           }
+           talert.showAndWait();
+       } else if (game.isFull()) {
+           talert.setHeaderText("Draw");
+           talert.setContentText("Draw");
+       }
     }
    
     public static void main(String[] args)

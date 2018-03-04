@@ -23,6 +23,7 @@ public class netGame
     private DataOutputStream client;
 
     public Board board;
+    public int mode;
 
     public netGame(Socket connection, boolean isHost) throws Exception 
     {
