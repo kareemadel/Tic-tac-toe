@@ -23,7 +23,6 @@ public class SingleGame extends Game implements Serializable{
     PipedOutputStream pout;
     public SingleGame() {
         super(new Player("name"), new Player("computer"));
-        mode = 0;
         currentPlayer = player1;
     }
     

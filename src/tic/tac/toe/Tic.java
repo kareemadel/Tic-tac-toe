@@ -47,7 +47,6 @@ public class Tic extends AnchorPane {
     protected final Label label;
     protected final Label label0;
     protected final ImageView imageView12;
-<<<<<<< HEAD
     protected final Pane pane9;
     protected final ImageView imageView13;
     protected final ImageView imageView14;
@@ -68,9 +67,7 @@ public class Tic extends AnchorPane {
     protected final ImageView imageView17;
     protected final ImageView imageView18;
     protected final ImageView imageView19;
-=======
     protected final ImageView[] cells;
->>>>>>> 0e32ed4fcde9d31376885b03663f33c580f86197
 
     public Tic() {
 
@@ -532,8 +529,8 @@ public class Tic extends AnchorPane {
         pane11.getChildren().add(imageView19);
         pane.getChildren().add(pane11);
         getChildren().add(pane);
+ cells = new ImageView[] {imageView, imageView0, imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7};
 
-        cells = new ImageView[] {imageView, imageView0, imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7};
-
-    }
 }
+    }
+

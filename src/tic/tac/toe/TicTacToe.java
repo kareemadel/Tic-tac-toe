@@ -5,7 +5,10 @@
  */
 package tic.tac.toe;
 
+import java.net.Socket;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.input.MouseEvent;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -23,23 +26,27 @@ import javafx.stage.Stage;
  */
 public class TicTacToe extends Application {
 
+
     private Game game;
-    Player pl1;
-    Player pl2;
     Tic root = new Tic();
     Menu root1 = new Menu();
     Alert talert = new Alert(Alert.AlertType.INFORMATION);
     private int xCount = 0;
     private int oCount = 0;
+    private int userChoice;
+    SingleGame currentGame;
+    NetGame netGame;
+    boolean isListener;
+    int port;
+    Server server;
+    Client client;
+    boolean canPlay;
+    String host;
   
     AudioClip win = new AudioClip(getClass().getResource("won.wav").toString());
     
     @Override
     public void start(Stage primaryStage) {
-        SingleGame currentGame = new SingleGame();;
-        game = currentGame;
-        pl1 = game.player1;
-        pl2 = game.player2;
 
         Scene scene = new Scene(root, 699, 609);
         Scene scene1 = new Scene(root1, 699, 609);
@@ -47,7 +54,6 @@ public class TicTacToe extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
         root1.label.setOnMouseClicked((MouseEvent event) -> {
-            game.mode = 0;
             primaryStage.hide();
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -60,7 +66,6 @@ public class TicTacToe extends Application {
             root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
         });
         root1.label1.setOnMouseClicked((MouseEvent event) -> {
-            game.mode = 1;
             primaryStage.hide();
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -87,43 +92,53 @@ public class TicTacToe extends Application {
         for (int i = 0; i < 9; i++) {
             final int location = i;
             root.cells[i].setOnMouseClicked((MouseEvent event) -> {
-                if (game.move(location, game.currentPlayer)) {
-                    if (game.mode == 0) {
+                switch (userChoice) {
+                    case 0:
+                        game.move(location, game.currentPlayer);
                         currentGame.computerMove();
-                    }
-                    redraw();
+                        break;
+                    case 1:
+                        game.move(location, game.currentPlayer);
+                        break;
+                    case 2:
+                        if (netGame.myTurn()) {
+                            try {
+                                netGame.move(location);
+                            } catch (Exception ex) {
+                                Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        break;
                 }
+                redraw();
             });
         }
 
         root.imageView9.setOnMouseClicked((MouseEvent event) -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Exit");
-            alert.setContentText("Do you want to back to the Menu?");
-            ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.YES);
-            ButtonType exit = new ButtonType("Exit", ButtonBar.ButtonData.NO);
-            ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-            alert.getButtonTypes().setAll(ok, exit, cancel);
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ok) {
-                primaryStage.hide();
-                primaryStage.setScene(scene1);
-                primaryStage.show();
-            }
-<<<<<<< HEAD
+           root.pane11.setVisible(true);
         });
             root.imageView14.setOnMouseClicked((MouseEvent event) -> {
                 root.pane9.setVisible(false);
                 root.gridPane.setOpacity(1.0);
+                game.board.reset();
+                redraw();
             });
              root.imageView15.setOnMouseClicked((MouseEvent event) -> {
-                 
+                 root.pane10.setVisible(false);
+                 game.board.reset();
+                 redraw();
              });  
              root.imageView16.setOnMouseClicked((MouseEvent event) -> {
                  root.pane10.setVisible(false);
                  primaryStage.hide();
                  primaryStage.setScene(scene1);
                  primaryStage.show(); 
+                 game.board.reset();
+                 redraw();
+                  oCount = 0;
+                 xCount = 0;
+                root.label.setText(String.valueOf(xCount));
+                root.label0.setText(String.valueOf(oCount));
                  
              }); 
              root.imageView17.setOnMouseClicked((MouseEvent event) -> {
@@ -131,6 +146,12 @@ public class TicTacToe extends Application {
                  primaryStage.hide();
                  primaryStage.setScene(scene1);
                  primaryStage.show();
+                 game.board.reset();
+                 redraw();
+                 oCount = 0;
+                 xCount = 0;
+                root.label.setText(String.valueOf(xCount));
+                root.label0.setText(String.valueOf(oCount));
              }); 
              root.imageView18.setOnMouseClicked((MouseEvent event) -> {
                  root.pane11.setVisible(false);
@@ -142,13 +163,6 @@ public class TicTacToe extends Application {
              }); 
            root.imageView9.setOnMouseClicked((MouseEvent event) -> {
                root.pane11.setVisible(true);
-=======
-            if (result.get() == exit) {
-                primaryStage.close();
-                System.exit(0);
-            }
-
->>>>>>> 0e32ed4fcde9d31376885b03663f33c580f86197
         });
         root.imageView8.setOnMouseClicked((MouseEvent event) -> {
             game.board.reset();
@@ -182,16 +196,11 @@ public class TicTacToe extends Application {
                     break;
             }
         }
-<<<<<<< HEAD
-        if(game.isWinner()) {
+        if (game.isWinner()) {
             root.gridPane.setOpacity(0.2);
             root.pane9.setVisible(true);
             root.imageView14.setImage(new Image(getClass().getResource("ok.png").toExternalForm()));
-=======
 
-        if (game.isWinner()) {
-            talert.setHeaderText("The Winner");
->>>>>>> 0e32ed4fcde9d31376885b03663f33c580f86197
             if (game.currentPlayer.icon == Board.State.X) {
                 root.imageView13.setImage(new Image(getClass().getResource("winnerx.png").toExternalForm()));
                 xCount++;
@@ -207,6 +216,85 @@ public class TicTacToe extends Application {
             }
         } else if (game.isFull()) {
             root.pane10.setVisible(true);
+        }
+    }
+    
+    /**
+     * Initializes the the game object and application based on the user's
+     * choice.
+     *
+     * @param userChoice either 0 (vs computer), 1 (vs human on the same
+     * machine) or 2 (vs player over network)
+     * @param argv optional arguments for the network mode, there are three of
+     * them argv[0]: "0" == client, "1" == host argv[1]: Ip argv[2]: port
+     */
+    public void userMode(int userChoice, String... argv) {
+        switch (userChoice) {
+            case 0:
+            case 1:
+                currentGame = new SingleGame();
+                game = currentGame;
+                break;
+            case 2:
+                isListener = argv[0].equals("1");
+                if (isListener) {
+                    try {
+                        // is host
+                        server = new Server(0);
+                        host = server.getIp();
+                    } catch (Exception ex) {
+                        Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    // will be presented using gui
+                    this.port = server.connection().getLocalPort();
+                    if (server.hasConnection()) {
+                        // if a client has connected, can start game
+                        canPlay = true;
+                    } else {
+                        // client connection failed, abort
+                        System.out.println("Connection to peer failed!");
+                        return;
+                    }
+                } else {
+                    // is client, has connected to server
+                    host = argv[1];
+                    this.port = Integer.parseInt(argv[2]);
+                    client = new Client(host, port);
+                    canPlay = true;
+                }
+                if (canPlay) {
+                    // am i using client or server socket
+                    Socket gameSocket = (isListener ? server.connection() : client.connection());
+
+                    try {
+                        // initialize new game with the correct socket and host statu
+                        game = new NetGame(gameSocket, isListener);
+                    } catch (Exception ex) {
+                        Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                Thread guiUpdateThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String move = null;
+                        while (true) {
+                            try {
+                                move = netGame.readMessage();
+                            } catch (Exception ex) {
+                                Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            try {
+                                netGame.move(Integer.parseInt(move));
+                            } catch (Exception ex) {
+                                Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            redraw();
+                        }
+                    }
+                });
+                guiUpdateThread.start();
+
+                break;
         }
     }
 
