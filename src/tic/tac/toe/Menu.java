@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class Menu extends AnchorPane {
+public  class Menu extends AnchorPane {
 
     protected final Pane pane;
     protected final GridPane gridPane;
@@ -84,10 +84,20 @@ public class Menu extends AnchorPane {
     protected final ImageView imageView6;
     protected final ImageView imageView7;
     protected final Pane pane13;
+    protected final TextField textField1;
+    protected final Pane pane14;
     protected final Rectangle rectangle2;
     protected final ImageView imageView8;
-    protected final Pane pane14;
+    protected final Pane pane15;
     protected final Text text8;
+    protected final Pane pane16;
+    protected final Rectangle rectangle3;
+    protected final GridPane gridPane8;
+    protected final ColumnConstraints columnConstraints9;
+    protected final RowConstraints rowConstraints8;
+    protected final Text text9;
+    protected final ImageView imageView9;
+    protected final ImageView imageView10;
 
     public Menu() {
 
@@ -160,10 +170,20 @@ public class Menu extends AnchorPane {
         imageView6 = new ImageView();
         imageView7 = new ImageView();
         pane13 = new Pane();
+        textField1 = new TextField();
+        pane14 = new Pane();
         rectangle2 = new Rectangle();
         imageView8 = new ImageView();
-        pane14 = new Pane();
+        pane15 = new Pane();
         text8 = new Text();
+        pane16 = new Pane();
+        rectangle3 = new Rectangle();
+        gridPane8 = new GridPane();
+        columnConstraints9 = new ColumnConstraints();
+        rowConstraints8 = new RowConstraints();
+        text9 = new Text();
+        imageView9 = new ImageView();
+        imageView10 = new ImageView();
 
         setId("AnchorPane");
         setPrefHeight(400.0);
@@ -279,8 +299,8 @@ public class Menu extends AnchorPane {
         imageView3.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 30, 0.5, 0, 0);");
         imageView3.setImage(new Image(getClass().getResource("close-icon.png").toExternalForm()));
 
-        pane0.setLayoutX(60.0);
-        pane0.setLayoutY(224.0);
+        pane0.setLayoutX(58.0);
+        pane0.setLayoutY(220.0);
         pane0.setPrefHeight(250.0);
         pane0.setPrefWidth(588.0);
         pane0.setVisible(false);
@@ -356,7 +376,7 @@ public class Menu extends AnchorPane {
         imageView4.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
         imageView4.setImage(new Image(getClass().getResource("NO.png").toExternalForm()));
 
-        pane3.setLayoutX(70.0);
+        pane3.setLayoutX(58.0);
         pane3.setLayoutY(220.0);
         pane3.setPrefHeight(300.0);
         pane3.setPrefWidth(588.0);
@@ -470,8 +490,8 @@ public class Menu extends AnchorPane {
         text5.setText("Waiting for connection ...");
         text5.setFont(new Font(19.0));
 
-        pane8.setLayoutX(80.0);
-        pane8.setLayoutY(230.0);
+        pane8.setLayoutX(58.0);
+        pane8.setLayoutY(220.0);
         pane8.setPrefHeight(300.0);
         pane8.setPrefWidth(588.0);
         pane8.setVisible(false);
@@ -550,6 +570,11 @@ public class Menu extends AnchorPane {
         pane12.setPrefWidth(293.0);
         pane12.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0) dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
 
+        textField0.setLayoutX(-1.0);
+        textField0.setLayoutY(9.0);
+        textField0.setPrefHeight(26.0);
+        textField0.setPrefWidth(262.0);
+
         imageView6.setFitHeight(60.0);
         imageView6.setFitWidth(95.0);
         imageView6.setLayoutX(335.0);
@@ -568,11 +593,22 @@ public class Menu extends AnchorPane {
         imageView7.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0) dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
         imageView7.setImage(new Image(getClass().getResource("NO.png").toExternalForm()));
 
-        pane13.setLayoutX(58.0);
-        pane13.setLayoutY(220.0);
-        pane13.setPrefHeight(300.0);
-        pane13.setPrefWidth(588.0);
-        pane13.setVisible(false);
+        pane13.setLayoutX(257.0);
+        pane13.setLayoutY(63.0);
+        pane13.setPrefHeight(43.0);
+        pane13.setPrefWidth(293.0);
+        pane13.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0) dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
+
+        textField1.setLayoutX(-1.0);
+        textField1.setLayoutY(9.0);
+        textField1.setPrefHeight(26.0);
+        textField1.setPrefWidth(262.0);
+
+        pane14.setLayoutX(58.0);
+        pane14.setLayoutY(220.0);
+        pane14.setPrefHeight(300.0);
+        pane14.setPrefWidth(588.0);
+        pane14.setVisible(false);
 
         rectangle2.setArcHeight(30.0);
         rectangle2.setArcWidth(30.0);
@@ -593,11 +629,11 @@ public class Menu extends AnchorPane {
         imageView8.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0) dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
         imageView8.setImage(new Image(getClass().getResource("ok.png").toExternalForm()));
 
-        pane14.setLayoutX(36.0);
-        pane14.setLayoutY(28.0);
-        pane14.setPrefHeight(168.0);
-        pane14.setPrefWidth(519.0);
-        pane14.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 30, 0.5, 0, 0); -fx-background-color: #4074a7;");
+        pane15.setLayoutX(36.0);
+        pane15.setLayoutY(28.0);
+        pane15.setPrefHeight(168.0);
+        pane15.setPrefWidth(519.0);
+        pane15.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 30, 0.5, 0, 0); -fx-background-color: #4074a7;");
 
         text8.setFill(javafx.scene.paint.Color.valueOf("#f2ecec"));
         text8.setLayoutX(9.0);
@@ -607,6 +643,63 @@ public class Menu extends AnchorPane {
         text8.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         text8.setWrappingWidth(501.72948837280273);
         text8.setFont(new Font(21.0));
+
+        pane16.setLayoutX(85.0);
+        pane16.setLayoutY(229.0);
+        pane16.setPrefHeight(250.0);
+        pane16.setPrefWidth(535.0);
+        pane16.setVisible(false);
+
+        rectangle3.setArcHeight(30.0);
+        rectangle3.setArcWidth(30.0);
+        rectangle3.setFill(javafx.scene.paint.Color.valueOf("#6795c2"));
+        rectangle3.setHeight(260.0);
+        rectangle3.setLayoutX(-1.0);
+        rectangle3.setStroke(javafx.scene.paint.Color.valueOf("#4074a7"));
+        rectangle3.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
+        rectangle3.setStrokeWidth(7.0);
+        rectangle3.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
+        rectangle3.setWidth(535.0);
+
+        gridPane8.setLayoutX(115.0);
+        gridPane8.setLayoutY(90.0);
+        gridPane8.setPrefHeight(40.0);
+        gridPane8.setPrefWidth(320.0);
+        gridPane8.setStyle("-fx-background-color: #4074a7; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
+
+        columnConstraints9.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
+        columnConstraints9.setMinWidth(10.0);
+        columnConstraints9.setPrefWidth(100.0);
+
+        rowConstraints8.setMinHeight(10.0);
+        rowConstraints8.setPrefHeight(30.0);
+        rowConstraints8.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
+
+        text9.setFill(javafx.scene.paint.Color.valueOf("#f5f3f3"));
+        text9.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+        text9.setStrokeWidth(0.0);
+        text9.setText("Do you want to exit the game?");
+        text9.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        text9.setWrappingWidth(321.3564453125);
+        text9.setFont(new Font(15.0));
+
+        imageView9.setFitHeight(40.0);
+        imageView9.setFitWidth(48.0);
+        imageView9.setLayoutX(326.0);
+        imageView9.setLayoutY(176.0);
+        imageView9.setPickOnBounds(true);
+        imageView9.setPreserveRatio(true);
+        imageView9.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
+        imageView9.setImage(new Image(getClass().getResource("ok.png").toExternalForm()));
+
+        imageView10.setFitHeight(40.0);
+        imageView10.setFitWidth(40.0);
+        imageView10.setLayoutX(161.0);
+        imageView10.setLayoutY(176.0);
+        imageView10.setPickOnBounds(true);
+        imageView10.setPreserveRatio(true);
+        imageView10.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
+        imageView10.setImage(new Image(getClass().getResource("NO.png").toExternalForm()));
 
         gridPane.getColumnConstraints().add(columnConstraints);
         gridPane.getRowConstraints().add(rowConstraints);
@@ -674,12 +767,22 @@ public class Menu extends AnchorPane {
         pane8.getChildren().add(pane12);
         pane8.getChildren().add(imageView6);
         pane8.getChildren().add(imageView7);
+        pane13.getChildren().add(textField1);
+        pane8.getChildren().add(pane13);
         pane.getChildren().add(pane8);
-        pane13.getChildren().add(rectangle2);
-        pane13.getChildren().add(imageView8);
-        pane14.getChildren().add(text8);
-        pane13.getChildren().add(pane14);
-        pane.getChildren().add(pane13);
+        pane14.getChildren().add(rectangle2);
+        pane14.getChildren().add(imageView8);
+        pane15.getChildren().add(text8);
+        pane14.getChildren().add(pane15);
+        pane.getChildren().add(pane14);
+        pane16.getChildren().add(rectangle3);
+        gridPane8.getColumnConstraints().add(columnConstraints9);
+        gridPane8.getRowConstraints().add(rowConstraints8);
+        gridPane8.getChildren().add(text9);
+        pane16.getChildren().add(gridPane8);
+        pane16.getChildren().add(imageView9);
+        pane16.getChildren().add(imageView10);
+        pane.getChildren().add(pane16);
         getChildren().add(pane);
 
     }

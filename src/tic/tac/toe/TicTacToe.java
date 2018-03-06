@@ -30,7 +30,6 @@ public class TicTacToe extends Application {
     private Game game;
     Tic root = new Tic();
     Menu root1 = new Menu();
-    Alert talert = new Alert(Alert.AlertType.INFORMATION);
     private int xCount = 0;
     private int oCount = 0;
     private int userChoice;
@@ -60,10 +59,8 @@ public class TicTacToe extends Application {
             root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("computer.png").toExternalForm()));
         });
         root1.label0.setOnMouseClicked((MouseEvent event) -> {
-            primaryStage.hide();
-            primaryStage.setScene(scene);
-            primaryStage.show();
-            root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
+            root1.pane0.setVisible(true);
+            
         });
         root1.label1.setOnMouseClicked((MouseEvent event) -> {
             primaryStage.hide();
@@ -72,20 +69,58 @@ public class TicTacToe extends Application {
             root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("icon-person-blue.png").toExternalForm()));
         });
         root1.imageView3.setOnMouseClicked((MouseEvent event) -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Exit");
-            alert.setContentText("Do you want to Exit from the game ?");
-            ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.YES);
-            ButtonType NO = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
-            alert.getButtonTypes().setAll(ok, NO);
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ok) {
-                primaryStage.close();
+            root1.pane16.setVisible(true);
+        });
+        root1.imageView10.setOnMouseClicked((MouseEvent event) -> {
+            root1.pane16.setVisible(false);
+        });
+        root1.imageView9.setOnMouseClicked((MouseEvent event) -> {
+            primaryStage.close();
                 System.exit(0);
-            }
-            if (result.get() == NO) {
-                alert.close();
-            }
+        });
+        root1.text0.setOnMouseClicked((MouseEvent event) -> {
+            root1.pane8.setVisible(true);
+            root1.pane0.setVisible(false);
+        });
+        root1.imageView4.setOnMouseClicked((MouseEvent event) -> {
+            root1.pane0.setVisible(false);
+        });
+        root1.text.setOnMouseClicked((MouseEvent event) -> {
+            root1.pane3.setVisible(true);
+            root1.pane0.setVisible(false);
+        });
+        root1.imageView5.setOnMouseClicked((MouseEvent event) -> {
+            root1.pane3.setVisible(false);
+            root1.pane0.setVisible(false);
+        });
+        root1.imageView7.setOnMouseClicked((MouseEvent event) -> {
+            root1.pane8.setVisible(false);
+            root1.pane0.setVisible(false);
+        });
+        root1.imageView8.setOnMouseClicked((MouseEvent event) -> {
+            root1.pane8.setVisible(true);
+            root1.pane14.setVisible(false);
+        });
+        root1.imageView6.setOnMouseClicked((MouseEvent event) -> {
+            //check if connection valid .....if not valid root1.pane14.setVisible(true);
+            //root1.text8.setText("hhhhhhhhhhhhhh");
+            root1.pane8.setVisible(false);
+            primaryStage.hide();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+            root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
+        });
+        root1.text3.setOnMouseClicked((MouseEvent event) -> {
+          //server ip
+        });
+         root1.text4.setOnMouseClicked((MouseEvent event) -> {
+          //server port
+        });
+         root1.textField0.setOnMouseClicked((MouseEvent event) -> {
+          //client ip
+        });
+         root1.textField1.setOnMouseClicked((MouseEvent event) -> {
+          //client port
         });
         primaryStage.setResizable(false);
 
