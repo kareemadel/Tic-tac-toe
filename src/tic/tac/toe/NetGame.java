@@ -14,13 +14,13 @@ import java.io.*;
 
 public class NetGame extends Game {
 
+    public boolean isWaiting = true;
     private boolean running;
     private boolean isHost;
     private boolean myTurn;
     private Socket gameSocket;
     private BufferedReader response;
     private DataOutputStream client;
-
 
     public NetGame(Socket connection, boolean isHost) throws Exception {
         super(new Player("Host"), new Player("Guest"));
@@ -31,8 +31,6 @@ public class NetGame extends Game {
         this.myTurn = isHost;
 
         this.gameSocket = connection;
-        this.response = new BufferedReader(new InputStreamReader(this.gameSocket.getInputStream()));
-        this.client = new DataOutputStream(this.gameSocket.getOutputStream());
     }
 
     public boolean move(int location) throws Exception {
@@ -45,6 +43,20 @@ public class NetGame extends Game {
         } else {
             return false;
         }
+    }
+
+    public void setIsHost(boolean flag) {
+        this.isHost = flag;
+    }
+
+    public void setConnection(Socket s) throws IOException {
+        this.gameSocket = s;
+        this.response = new BufferedReader(new InputStreamReader(this.gameSocket.getInputStream()));
+        this.client = new DataOutputStream(this.gameSocket.getOutputStream());
+    }
+
+    public void setMyTurn(boolean flag) {
+        this.myTurn = flag;
     }
 
     public boolean myTurn() {

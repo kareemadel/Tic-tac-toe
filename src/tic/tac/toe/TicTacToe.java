@@ -11,9 +11,9 @@ import java.util.logging.Logger;
 import javafx.scene.input.MouseEvent;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
@@ -39,6 +39,8 @@ public class TicTacToe extends Application {
     Client client;
     boolean canPlay;
     String host;
+    private Stage stage;
+    private Scene scene, scene1;
 
     AudioClip win = new AudioClip(getClass().getResource("won.wav").toString());
 
@@ -100,9 +102,16 @@ public class TicTacToe extends Application {
             root1.imageView3.setOpacity(1.0);
             eventFlag1 = true;
         });
+        //host button
         root1.text.setOnMouseClicked((MouseEvent event) -> {
             root1.pane3.setVisible(true);
             root1.pane0.setVisible(false);
+            try {
+                // argv[0]: "0" == client, "1" == host argv[1]: Ip argv[2]: port
+                userMode(2, "1");
+            } catch (Exception ex) {
+                Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         root1.imageView5.setOnMouseClicked((MouseEvent event) -> {
             root1.pane3.setVisible(false);
@@ -122,13 +131,21 @@ public class TicTacToe extends Application {
             eventFlag1 = true;
         });
         root1.imageView6.setOnMouseClicked((MouseEvent event) -> {
-            //check if connection valid .....if not valid root1.pane14.setVisible(true);
-            //root1.text8.setText("hhhhhhhhhhhhhh");
-            root1.pane8.setVisible(false);
-            primaryStage.hide();
-            primaryStage.setScene(scene);
-            primaryStage.show();
-            root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
+            try {
+                String port = root1.textField0.getText();
+                String ip = root1.textField1.getText();
+                //argv[0]: "0" == client, "1" == host argv[1]: Ip argv[2]: port
+                userMode(2, "0", ip, port);
+                root1.pane8.setVisible(false);
+                primaryStage.hide();
+                primaryStage.setScene(scene);
+                primaryStage.show();
+                root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                root1.pane14.setVisible(true);
+                root1.text8.setText("There Was A Problem Connecting To Server, Please Try Again.");
+            }
         });
         root1.text3.setOnMouseClicked((MouseEvent event) -> {
             //server ip
@@ -310,7 +327,7 @@ public class TicTacToe extends Application {
      * @param argv optional arguments for the network mode, there are three of
      * them argv[0]: "0" == client, "1" == host argv[1]: Ip argv[2]: port
      */
-    public void userMode(int userChoice, String... argv) {
+    public void userMode(int userChoice, String... argv) throws Exception {
         switch (userChoice) {
             case 0:
             case 1:
@@ -321,43 +338,51 @@ public class TicTacToe extends Application {
                 isListener = argv[0].equals("1");
                 if (isListener) {
                     try {
+                        System.out.println("creating server");
                         // is host
                         server = new Server(0);
+                        server.start();
                         host = server.getIp();
+                        // showing server ip to the host
+                        root1.text3.setText(host);
                     } catch (Exception ex) {
                         Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    // will be presented using gui
-                    this.port = server.connection().getLocalPort();
-                    if (server.hasConnection()) {
-                        // if a client has connected, can start game
-                        canPlay = true;
-                    } else {
-                        // client connection failed, abort
-                        System.out.println("Connection to peer failed!");
-                        return;
-                    }
+                    // showing server port to the host
+                    String port = Integer.toString(server.getPort());
+                    root1.text4.setText(port);
+
                 } else {
                     // is client, has connected to server
                     host = argv[1];
                     this.port = Integer.parseInt(argv[2]);
                     client = new Client(host, port);
+                    client.start();
                     canPlay = true;
                 }
-                if (canPlay) {
-                    // am i using client or server socket
-                    Socket gameSocket = (isListener ? server.connection() : client.connection());
 
-                    try {
-                        // initialize new game with the correct socket and host statu
-                        game = new NetGame(gameSocket, isListener);
-                    } catch (Exception ex) {
-                        Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
                 Thread guiUpdateThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        if (isListener) {
+                            game = server.game;
+                            netGame = server.game;
+                            while (server.game.isWaiting);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    root1.pane8.setVisible(false);
+                                    stage.hide();
+                                    stage.setScene(scene);
+                                    stage.show();
+                                    root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
+                                }
+                            });
+                        } else {
+                            game = client.game;
+                            netGame = client.game;
+                        }
+
                         String move = null;
                         while (true) {
                             try {

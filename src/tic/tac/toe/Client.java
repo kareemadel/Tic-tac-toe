@@ -11,27 +11,43 @@ package tic.tac.toe;
  */
 import java.net.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Client 
+public class Client extends Thread
 {
     private Socket connection;
+    private String host;
     private int port;
+    public NetGame game =  new NetGame(this.connection, false);
 
-    public Client(String host, int p) 
+    public Client(String host, int p) throws Exception 
     {
         this.port = p;
+        this.host = host;
         System.out.println("Connecting to " + host + " on port " + this.port);
-        try 
-        {
-            connection = new Socket(host,p);
-        } catch(Exception ex) 
-        {
-            System.out.println("Connection to " + host + " failed!");
-            System.exit(0);
-        }
-        System.out.println("Connected...");
-        System.out.println("Waiting for opponent...");
     }
+    
+    @Override
+    public void run(){
+            try {
+                try {
+                    connection = new Socket(this.host, this.port);
+                } catch (Exception ex) {
+                    System.out.println("Connection to " + host + " failed!");
+                    System.exit(0);
+                }
+                // initialize new game with the correct socket and host status
+                game.setConnection(connection);
+                game.setMyTurn(false);
+                game.setIsHost(false);
+                game.isWaiting = false;
+                } catch (Exception ex) {
+                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+    
+    
 
     public Socket connection() 
     {
