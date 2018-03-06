@@ -29,7 +29,7 @@ public class Board implements Serializable {
     /**
      * movesDone is a HashMap 
      */
-    private HashMap<Integer,State> movesDone;
+    private HashMap<Integer,aMove> movesDone;
 
     /**
      * Construct the Tic Tac Toe board.
@@ -38,6 +38,7 @@ public class Board implements Serializable {
         board = new State[BOARD_WIDTH][BOARD_WIDTH];
         movesAvailable = new HashSet<>();
         movesDone = new HashMap<>();
+        moveCount = 1;
         reset();
     }
 
@@ -100,7 +101,7 @@ public class Board implements Serializable {
 
         moveCount++;
         movesAvailable.remove(y * BOARD_WIDTH + x);
-        movesDone.put(y * BOARD_WIDTH + x, board[y][x]);
+        movesDone.put(moveCount, new aMove(y * BOARD_WIDTH + x, board[y][x]));
 
         // The game is a draw.
         if (moveCount == BOARD_WIDTH * BOARD_WIDTH) {
@@ -258,5 +259,12 @@ public class Board implements Serializable {
     public int movesDone() {
         return moveCount;
     }
-
+    class aMove implements Serializable {
+        int pos;
+        State stat;
+        public aMove(int pos, State stat) {
+            this.pos = pos;
+            this.stat = stat;
+        }
+    }
 }
