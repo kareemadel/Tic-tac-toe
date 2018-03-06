@@ -41,14 +41,16 @@ public class TicTacToe extends Application {
     String host;
     private Stage stage;
     private Scene scene, scene1;
+    Thread guiUpdateThread;
 
     AudioClip win = new AudioClip(getClass().getResource("won.wav").toString());
 
     @Override
     public void start(Stage primaryStage) {
 
-        Scene scene = new Scene(root, 699, 609);
-        Scene scene1 = new Scene(root1, 699, 609);
+        stage = primaryStage;
+        scene = new Scene(root, 699, 609);
+        scene1 = new Scene(root1, 699, 609);
         primaryStage.setScene(scene1);
         primaryStage.show();
         primaryStage.setResizable(false);
@@ -68,6 +70,8 @@ public class TicTacToe extends Application {
             root1.pane0.setVisible(true);
             root1.imageView3.setOpacity(0.2);
             eventFlag1 = false;
+            System.out.println("label");
+            userChoice = 2;
         });
         root1.label1.setOnMouseClicked((MouseEvent event) -> {
             userChoice = 1;
@@ -135,6 +139,7 @@ public class TicTacToe extends Application {
                 String port = root1.textField0.getText();
                 String ip = root1.textField1.getText();
                 //argv[0]: "0" == client, "1" == host argv[1]: Ip argv[2]: port
+                userChoice = 2;
                 userMode(2, "0", ip, port);
                 root1.pane8.setVisible(false);
                 primaryStage.hide();
@@ -327,7 +332,7 @@ public class TicTacToe extends Application {
      * @param argv optional arguments for the network mode, there are three of
      * them argv[0]: "0" == client, "1" == host argv[1]: Ip argv[2]: port
      */
-    public void userMode(int userChoice, String... argv) throws Exception {
+    public void userMode(int userChoice, String... argv) {
         switch (userChoice) {
             case 0:
             case 1:
@@ -336,38 +341,27 @@ public class TicTacToe extends Application {
                 break;
             case 2:
                 isListener = argv[0].equals("1");
-                if (isListener) {
-                    try {
-                        System.out.println("creating server");
-                        // is host
-                        server = new Server(0);
-                        server.start();
-                        host = server.getIp();
-                        // showing server ip to the host
-                        root1.text3.setText(host);
-                    } catch (Exception ex) {
-                        Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    // showing server port to the host
-                    String port = Integer.toString(server.getPort());
-                    root1.text4.setText(port);
-
-                } else {
-                    // is client, has connected to server
-                    host = argv[1];
-                    this.port = Integer.parseInt(argv[2]);
-                    client = new Client(host, port);
-                    client.start();
-                    canPlay = true;
-                }
-
-                Thread guiUpdateThread = new Thread(new Runnable() {
+                guiUpdateThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         if (isListener) {
+                            try {
+                                System.out.println("creating server");
+                                // is host
+                                server = new Server(0);
+                                server.start();
+                                host = server.getIp();
+                                // showing server ip to the host
+                                root1.text3.setText(host);
+                            } catch (Exception ex) {
+                                Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            // showing server port to the host
+                            String port = Integer.toString(server.getPort());
+                            root1.text4.setText(port);
                             game = server.game;
                             netGame = server.game;
-                            while (server.game.isWaiting);
+                            while (server.connection() == null);
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
@@ -379,12 +373,24 @@ public class TicTacToe extends Application {
                                 }
                             });
                         } else {
+                            // is client, has connected to server
+                            host = argv[1];
+                            port = Integer.parseInt(argv[2]);
+                            try {
+                                client = new Client(host, port);
+                            } catch (Exception ex) {
+                                Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            client.start();
+                            canPlay = true;
                             game = client.game;
                             netGame = client.game;
+                            while (client.connection() == null);
+                            System.out.println("client out");
                         }
 
                         String move = null;
-                        while (true) {
+                        while (!game.isFull() && !game.isWinner()) {
                             try {
                                 move = netGame.readMessage();
                             } catch (Exception ex) {
@@ -400,7 +406,6 @@ public class TicTacToe extends Application {
                     }
                 });
                 guiUpdateThread.start();
-
                 break;
         }
     }

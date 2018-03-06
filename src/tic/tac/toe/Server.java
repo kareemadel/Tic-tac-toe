@@ -43,12 +43,8 @@ public class Server extends Thread {
                 try {
                     // initialize new game with the correct socket and host statu
                     game.setConnection(connection);
-                System.out.println("set connection");
                     game.setMyTurn(true);
-                System.out.println("after set turn");
                     game.setIsHost(true);
-                System.out.println("after set host");
-                    game.isWaiting = false;
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,7 +54,6 @@ public class Server extends Thread {
                 ex.printStackTrace();
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("hahafasdfasdfasdfsadfasdfsadfasdfsdafhahafasdfasdfasdfsadfasdfsadfasdfsdaf");
             this.hasConnection = true;
         }
     }
