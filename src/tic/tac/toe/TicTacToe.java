@@ -6,17 +6,14 @@
 package tic.tac.toe;
 
 import java.net.Socket;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.input.MouseEvent;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
@@ -31,6 +28,8 @@ public class TicTacToe extends Application {
     Tic root = new Tic();
     Menu root1 = new Menu();
     private int xCount = 0;
+    private boolean eventFlag1 = true;
+    private boolean eventFlag2 = true;
     private int oCount = 0;
     private int userChoice;
     SingleGame currentGame;
@@ -60,7 +59,8 @@ public class TicTacToe extends Application {
         });
         root1.label0.setOnMouseClicked((MouseEvent event) -> {
             root1.pane0.setVisible(true);
-            
+            root1.imageView3.setOpacity(0.2);
+            eventFlag1 = false ; 
         });
         root1.label1.setOnMouseClicked((MouseEvent event) -> {
             primaryStage.hide();
@@ -69,7 +69,9 @@ public class TicTacToe extends Application {
             root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("icon-person-blue.png").toExternalForm()));
         });
         root1.imageView3.setOnMouseClicked((MouseEvent event) -> {
-            root1.pane16.setVisible(true);
+            if(eventFlag1){
+           root1.pane16.setVisible(true);
+            }            
         });
         root1.imageView10.setOnMouseClicked((MouseEvent event) -> {
             root1.pane16.setVisible(false);
@@ -84,6 +86,8 @@ public class TicTacToe extends Application {
         });
         root1.imageView4.setOnMouseClicked((MouseEvent event) -> {
             root1.pane0.setVisible(false);
+            root1.imageView3.setOpacity(1.0);
+            eventFlag1 = true;
         });
         root1.text.setOnMouseClicked((MouseEvent event) -> {
             root1.pane3.setVisible(true);
@@ -92,14 +96,19 @@ public class TicTacToe extends Application {
         root1.imageView5.setOnMouseClicked((MouseEvent event) -> {
             root1.pane3.setVisible(false);
             root1.pane0.setVisible(false);
+            root1.imageView3.setOpacity(1.0);
+            eventFlag1 = true;
         });
         root1.imageView7.setOnMouseClicked((MouseEvent event) -> {
             root1.pane8.setVisible(false);
             root1.pane0.setVisible(false);
+            root1.imageView3.setOpacity(1.0);
+            eventFlag1 = true;
         });
         root1.imageView8.setOnMouseClicked((MouseEvent event) -> {
             root1.pane8.setVisible(true);
             root1.pane14.setVisible(false);
+            eventFlag1 = true;
         });
         root1.imageView6.setOnMouseClicked((MouseEvent event) -> {
             //check if connection valid .....if not valid root1.pane14.setVisible(true);
@@ -150,7 +159,13 @@ public class TicTacToe extends Application {
         }
 
         root.imageView9.setOnMouseClicked((MouseEvent event) -> {
+            if (eventFlag2){
            root.pane11.setVisible(true);
+           root.gridPane.setOpacity(0.2);
+           root.imageView8.setOpacity(0.2);
+           root.imageView9.setOpacity(0.2);
+           root.imageView12.setOpacity(0.2);
+            }
         });
             root.imageView14.setOnMouseClicked((MouseEvent event) -> {
                 root.pane9.setVisible(false);
@@ -177,6 +192,11 @@ public class TicTacToe extends Application {
                  
              }); 
              root.imageView17.setOnMouseClicked((MouseEvent event) -> {
+                 eventFlag2 = true;
+                 root.imageView8.setOpacity(1.0);
+                 root.imageView9.setOpacity(1.0);
+                 root.imageView12.setOpacity(1.0);
+                 root.gridPane.setOpacity(1.0);
                  root.pane11.setVisible(false);
                  primaryStage.hide();
                  primaryStage.setScene(scene1);
@@ -190,18 +210,23 @@ public class TicTacToe extends Application {
              }); 
              root.imageView18.setOnMouseClicked((MouseEvent event) -> {
                  root.pane11.setVisible(false);
+                 eventFlag2 = true;
+                 root.imageView8.setOpacity(1.0);
+                 root.imageView9.setOpacity(1.0);
+                 root.imageView12.setOpacity(1.0);
+                 root.gridPane.setOpacity(1.0);
                  
              }); 
              root.imageView19.setOnMouseClicked((MouseEvent event) -> {
                  primaryStage.close();
                 System.exit(0);
              }); 
-           root.imageView9.setOnMouseClicked((MouseEvent event) -> {
-               root.pane11.setVisible(true);
-        });
         root.imageView8.setOnMouseClicked((MouseEvent event) -> {
+            if(eventFlag2){
             game.board.reset();
             redraw();
+            
+            }
         });
     }
 
@@ -232,6 +257,10 @@ public class TicTacToe extends Application {
             }
         }
         if (game.isWinner()) {
+            eventFlag2 = false ; 
+            root.imageView8.setOpacity(0.2);
+            root.imageView9.setOpacity(0.2);
+            root.imageView12.setOpacity(0.2);
             root.gridPane.setOpacity(0.2);
             root.pane9.setVisible(true);
             root.imageView14.setImage(new Image(getClass().getResource("ok.png").toExternalForm()));
@@ -250,7 +279,11 @@ public class TicTacToe extends Application {
 
             }
         } else if (game.isFull()) {
+            eventFlag2 = false ; 
             root.pane10.setVisible(true);
+            root.imageView8.setOpacity(0.2);
+            root.imageView9.setOpacity(0.2);
+            root.imageView12.setOpacity(0.2);
         }
     }
     

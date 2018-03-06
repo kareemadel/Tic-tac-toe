@@ -8,11 +8,12 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class Tic extends AnchorPane {
+public  class Tic extends AnchorPane {
 
     protected final Pane pane;
     protected final GridPane gridPane;
@@ -26,18 +27,26 @@ public class Tic extends AnchorPane {
     protected final ImageView imageView;
     protected final Pane pane1;
     protected final ImageView imageView0;
+    protected final Line line;
+    protected final Line line0;
     protected final Pane pane2;
     protected final ImageView imageView1;
+    protected final Line line1;
     protected final Pane pane3;
     protected final ImageView imageView2;
+    protected final Line line2;
     protected final Pane pane4;
     protected final ImageView imageView3;
+    protected final Line line3;
+    protected final Line line4;
     protected final Pane pane5;
     protected final ImageView imageView4;
+    protected final Line line5;
     protected final Pane pane6;
     protected final ImageView imageView5;
     protected final Pane pane7;
     protected final ImageView imageView6;
+    protected final Line line6;
     protected final Pane pane8;
     protected final ImageView imageView7;
     protected final ImageView imageView8;
@@ -69,6 +78,7 @@ public class Tic extends AnchorPane {
     protected final ImageView imageView19;
     protected final ImageView[] cells;
 
+
     public Tic() {
 
         pane = new Pane();
@@ -83,18 +93,26 @@ public class Tic extends AnchorPane {
         imageView = new ImageView();
         pane1 = new Pane();
         imageView0 = new ImageView();
+        line = new Line();
+        line0 = new Line();
         pane2 = new Pane();
         imageView1 = new ImageView();
+        line1 = new Line();
         pane3 = new Pane();
         imageView2 = new ImageView();
+        line2 = new Line();
         pane4 = new Pane();
         imageView3 = new ImageView();
+        line3 = new Line();
+        line4 = new Line();
         pane5 = new Pane();
         imageView4 = new ImageView();
+        line5 = new Line();
         pane6 = new Pane();
         imageView5 = new ImageView();
         pane7 = new Pane();
         imageView6 = new ImageView();
+        line6 = new Line();
         pane8 = new Pane();
         imageView7 = new ImageView();
         imageView8 = new ImageView();
@@ -192,6 +210,23 @@ public class Tic extends AnchorPane {
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
 
+        line.setEndX(100.0);
+        line.setLayoutX(144.0);
+        line.setLayoutY(57.0);
+        line.setStartX(-260.0);
+        line.setStroke(javafx.scene.paint.Color.valueOf("#c17d68"));
+        line.setStrokeWidth(8.0);
+        line.setVisible(false);
+
+        line0.setEndX(100.0);
+        line0.setEndY(322.0);
+        line0.setLayoutX(145.0);
+        line0.setLayoutY(15.0);
+        line0.setStartX(-255.0);
+        line0.setStroke(javafx.scene.paint.Color.valueOf("#c17d68"));
+        line0.setStrokeWidth(8.0);
+        line0.setVisible(false);
+
         GridPane.setColumnIndex(pane2, 2);
         pane2.setPrefHeight(200.0);
         pane2.setPrefWidth(200.0);
@@ -203,6 +238,15 @@ public class Tic extends AnchorPane {
         imageView1.setPickOnBounds(true);
         imageView1.setPreserveRatio(true);
 
+        line1.setEndX(-605.0);
+        line1.setEndY(320.0);
+        line1.setLayoutX(370.0);
+        line1.setLayoutY(10.0);
+        line1.setStartX(-255.0);
+        line1.setStroke(javafx.scene.paint.Color.valueOf("#c17d68"));
+        line1.setStrokeWidth(8.0);
+        line1.setVisible(false);
+
         GridPane.setRowIndex(pane3, 1);
         pane3.setPrefHeight(200.0);
         pane3.setPrefWidth(200.0);
@@ -213,6 +257,14 @@ public class Tic extends AnchorPane {
         imageView2.setLayoutY(13.0);
         imageView2.setPickOnBounds(true);
         imageView2.setPreserveRatio(true);
+
+        line2.setEndY(100.0);
+        line2.setLayoutX(63.0);
+        line2.setLayoutY(130.0);
+        line2.setStartY(-240.0);
+        line2.setStroke(javafx.scene.paint.Color.valueOf("#c17d68"));
+        line2.setStrokeWidth(8.0);
+        line2.setVisible(false);
 
         GridPane.setColumnIndex(pane4, 1);
         GridPane.setRowIndex(pane4, 1);
@@ -226,6 +278,22 @@ public class Tic extends AnchorPane {
         imageView3.setPickOnBounds(true);
         imageView3.setPreserveRatio(true);
 
+        line3.setEndX(100.0);
+        line3.setLayoutX(144.0);
+        line3.setLayoutY(56.0);
+        line3.setStartX(-260.0);
+        line3.setStroke(javafx.scene.paint.Color.valueOf("#c17d68"));
+        line3.setStrokeWidth(8.0);
+        line3.setVisible(false);
+
+        line4.setEndY(100.0);
+        line4.setLayoutX(62.0);
+        line4.setLayoutY(130.0);
+        line4.setStartY(-240.0);
+        line4.setStroke(javafx.scene.paint.Color.valueOf("#c17d68"));
+        line4.setStrokeWidth(8.0);
+        line4.setVisible(false);
+
         GridPane.setColumnIndex(pane5, 2);
         GridPane.setRowIndex(pane5, 1);
         pane5.setPrefHeight(200.0);
@@ -237,6 +305,14 @@ public class Tic extends AnchorPane {
         imageView4.setLayoutY(13.0);
         imageView4.setPickOnBounds(true);
         imageView4.setPreserveRatio(true);
+
+        line5.setEndY(100.0);
+        line5.setLayoutX(62.0);
+        line5.setLayoutY(130.0);
+        line5.setStartY(-240.0);
+        line5.setStroke(javafx.scene.paint.Color.valueOf("#c17d68"));
+        line5.setStrokeWidth(8.0);
+        line5.setVisible(false);
 
         GridPane.setRowIndex(pane6, 2);
         pane6.setPrefHeight(200.0);
@@ -260,6 +336,14 @@ public class Tic extends AnchorPane {
         imageView6.setLayoutY(13.0);
         imageView6.setPickOnBounds(true);
         imageView6.setPreserveRatio(true);
+
+        line6.setEndX(100.0);
+        line6.setLayoutX(144.0);
+        line6.setLayoutY(50.0);
+        line6.setStartX(-260.0);
+        line6.setStroke(javafx.scene.paint.Color.valueOf("#c17d68"));
+        line6.setStrokeWidth(8.0);
+        line6.setVisible(false);
 
         GridPane.setColumnIndex(pane8, 2);
         GridPane.setRowIndex(pane8, 2);
@@ -485,18 +569,26 @@ public class Tic extends AnchorPane {
         pane0.getChildren().add(imageView);
         gridPane.getChildren().add(pane0);
         pane1.getChildren().add(imageView0);
+        pane1.getChildren().add(line);
+        pane1.getChildren().add(line0);
         gridPane.getChildren().add(pane1);
         pane2.getChildren().add(imageView1);
+        pane2.getChildren().add(line1);
         gridPane.getChildren().add(pane2);
         pane3.getChildren().add(imageView2);
+        pane3.getChildren().add(line2);
         gridPane.getChildren().add(pane3);
         pane4.getChildren().add(imageView3);
+        pane4.getChildren().add(line3);
+        pane4.getChildren().add(line4);
         gridPane.getChildren().add(pane4);
         pane5.getChildren().add(imageView4);
+        pane5.getChildren().add(line5);
         gridPane.getChildren().add(pane5);
         pane6.getChildren().add(imageView5);
         gridPane.getChildren().add(pane6);
         pane7.getChildren().add(imageView6);
+        pane7.getChildren().add(line6);
         gridPane.getChildren().add(pane7);
         pane8.getChildren().add(imageView7);
         gridPane.getChildren().add(pane8);
@@ -529,8 +621,7 @@ public class Tic extends AnchorPane {
         pane11.getChildren().add(imageView19);
         pane.getChildren().add(pane11);
         getChildren().add(pane);
- cells = new ImageView[] {imageView, imageView0, imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7};
+cells = new ImageView[] {imageView, imageView0, imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7};
 
-}
     }
-
+}
