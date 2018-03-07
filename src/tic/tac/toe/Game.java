@@ -106,4 +106,9 @@ public class Game implements Serializable {
             return false;
         }
     }
+    
+    public void reset() {
+        board.reset();
+        currentPlayer = player1;
+    }
 }

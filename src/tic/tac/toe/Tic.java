@@ -13,7 +13,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public  class Tic extends AnchorPane {
+
+public class Tic extends AnchorPane {
 
     protected final Pane pane;
     protected final GridPane gridPane;
@@ -76,8 +77,7 @@ public  class Tic extends AnchorPane {
     protected final ImageView imageView17;
     protected final ImageView imageView18;
     protected final ImageView imageView19;
-    protected final ImageView[] cells;
-
+protected final ImageView[] cells;
 
     public Tic() {
 
@@ -621,7 +621,7 @@ public  class Tic extends AnchorPane {
         pane11.getChildren().add(imageView19);
         pane.getChildren().add(pane11);
         getChildren().add(pane);
-cells = new ImageView[] {imageView, imageView0, imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7};
+    cells = new ImageView[] {imageView, imageView0, imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7};
 
     }
 }

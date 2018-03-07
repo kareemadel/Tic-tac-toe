@@ -22,7 +22,7 @@ public class NetGame extends Game {
     private BufferedReader response;
     private DataOutputStream client;
 
-    public NetGame(Socket connection, boolean isHost) throws Exception {
+    public NetGame(Socket connection, boolean isHost) {
         super(new Player("Host"), new Player("Guest"));
         this.board = new Board();
 
@@ -31,16 +31,48 @@ public class NetGame extends Game {
         this.myTurn = isHost;
 
         this.gameSocket = connection;
+        currentPlayer = player1;
     }
 
-    public boolean move(int location) throws Exception {
+    public boolean moveAndSend(int location) throws IOException {
+        System.out.println("Before condition");
+        System.out.println(currentPlayer.icon);
+        System.out.println(myTurn);
         if (board.move(location)) {
             this.sendMessage("" + location);
             if (!(isFull() || isWinner())) {
                 this.myTurn = !this.myTurn;
+                currentPlayer = currentPlayer == player1 ? player2 : player1;
             }
+            System.out.println("Before True");
+            System.out.println(currentPlayer.icon);
+            System.out.println(myTurn);
             return true;
         } else {
+            System.out.println("Before false");
+            System.out.println(currentPlayer.icon);
+            System.out.println(myTurn);
+            return false;
+        }
+    }
+
+    public boolean move(int location) {
+        System.out.println("Before condition");
+        System.out.println(currentPlayer.icon);
+        System.out.println(myTurn);
+        if (board.move(location)) {
+            if (!(isFull() || isWinner())) {
+                this.myTurn = !this.myTurn;
+                currentPlayer = currentPlayer == player1 ? player2 : player1;
+            }
+            System.out.println("Before true");
+            System.out.println(currentPlayer.icon);
+            System.out.println(myTurn);
+            return true;
+        } else {
+            System.out.println("Before false");
+            System.out.println(currentPlayer.icon);
+            System.out.println(myTurn);
             return false;
         }
     }
@@ -63,15 +95,15 @@ public class NetGame extends Game {
         return myTurn;
     }
 
-    public void exit() throws Exception {
+    public void exit() throws IOException {
         this.gameSocket.close();
     }
 
-    public String readMessage() throws Exception {
+    public String readMessage() throws IOException {
         return this.response.readLine();
     }
 
-    public void sendMessage(String s) throws Exception {
+    public void sendMessage(String s) throws IOException {
         this.client.writeBytes(s + "\n");
     }
 }

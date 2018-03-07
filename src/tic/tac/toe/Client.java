@@ -14,43 +14,39 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Client extends Thread
-{
+public class Client extends Thread {
+
     private Socket connection;
     private String host;
     private int port;
-    public NetGame game =  new NetGame(this.connection, false);
+    public boolean isException = false;
+    public NetGame game = new NetGame(this.connection, false);
 
-    public Client(String host, int p) throws Exception 
-    {
+    public Client(String host, int p) {
         this.port = p;
         this.host = host;
         System.out.println("Connecting to " + host + " on port " + this.port);
     }
-    
-    @Override
-    public void run(){
-            try {
-                try {
-                    this.connection = new Socket(this.host, this.port);
-                } catch (Exception ex) {
-                    System.out.println("Connection to " + host + " failed!");
-                    System.exit(0);
-                }
-                // initialize new game with the correct socket and host status
-                game.setConnection(this.connection);
-                game.setMyTurn(false);
-                game.setIsHost(false);
-                game.isWaiting = false;
-                } catch (Exception ex) {
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-        }
-    
-    
 
-    public Socket connection() 
-    {
+    @Override
+    public void run() {
+        try {
+            this.connection = new Socket(this.host, this.port);
+            // initialize new game with the correct socket and host status
+            game.setConnection(this.connection);
+            game.setMyTurn(false);
+            game.setIsHost(false);
+            game.isWaiting = false;
+        } catch (IOException ex) {
+            System.out.println("Connection to " + host + " failed!");
+            isException = true;
+        } catch (NumberFormatException ex) {
+            System.out.println("ex");
+            isException = true;
+        }
+    }
+
+    public Socket connection() {
         return connection;
     }
 }

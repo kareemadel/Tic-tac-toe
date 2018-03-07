@@ -24,11 +24,10 @@ public class Server extends Thread {
     private boolean hasConnection;
     public NetGame game = new NetGame(this.connection, true);
 
-    public Server(int p) throws Exception {
+    public Server(int p) throws IOException {
         this.port = p;
         this.hasConnection = false;
         listener = new ServerSocket(port);
-
     }
 
     @Override
@@ -40,21 +39,14 @@ public class Server extends Thread {
                 this.connection = listener.accept();
                 System.out.println("after accept");
                 // using server socket && creating game object
-                try {
-                    // initialize new game with the correct socket and host statu
-                    game.setConnection(connection);
-                    game.setMyTurn(true);
-                    game.setIsHost(true);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+                // initialize new game with the correct socket and host statu
+                game.setConnection(connection);
+                game.setMyTurn(true);
+                game.setIsHost(true);
+                this.hasConnection = true;
             } catch (IOException ex) {
-                ex.printStackTrace();
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.hasConnection = true;
         }
     }
 
