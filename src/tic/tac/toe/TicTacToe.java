@@ -176,35 +176,22 @@ public class TicTacToe extends Application {
 
         root.imageView9.setOnMouseClicked((MouseEvent event) -> {
             if (eventFlag2) {
-                root.pane11.setVisible(true);
+                root.pane12.setVisible(true);
                 root.gridPane.setOpacity(0.2);
                 root.imageView8.setOpacity(0.2);
                 root.imageView9.setOpacity(0.2);
                 root.imageView12.setOpacity(0.2);
             }
         });
-        root.imageView110.setOnMouseClicked((MouseEvent event) -> {
-            eventFlag2 = true;
-            root.imageView8.setOpacity(1.0);
-            root.imageView9.setOpacity(1.0);
-            root.imageView12.setOpacity(1.0);
-            root.pane10.setVisible(false);
-            primaryStage.setScene(scene1);
-            primaryStage.show();
-            game.reset();
-            redraw();
-            oCount = 0;
-            xCount = 0;
-            root.label.setText(String.valueOf(xCount));
-            root.label0.setText(String.valueOf(oCount));
-        });
+        
         root.imageView14.setOnMouseClicked((MouseEvent event) -> {
+            root.pane10.setVisible(false);
             eventFlag2 = true;
             root.imageView8.setOpacity(1.0);
             root.imageView9.setOpacity(1.0);
             root.imageView12.setOpacity(1.0);
-            root.pane9.setVisible(false);
             root.gridPane.setOpacity(1.0);
+            
 
         });
         root.imageView15.setOnMouseClicked((MouseEvent event) -> {
@@ -213,7 +200,7 @@ public class TicTacToe extends Application {
             root.imageView9.setOpacity(1.0);
             root.imageView12.setOpacity(1.0);
             root.gridPane.setOpacity(1.0);
-            root.pane10.setVisible(false);
+            root.pane11.setVisible(false);
             game.reset();
             redraw();
         });
@@ -248,7 +235,7 @@ public class TicTacToe extends Application {
             root.imageView9.setOpacity(1.0);
             root.imageView12.setOpacity(1.0);
             root.gridPane.setOpacity(1.0);
-            root.pane11.setVisible(false);
+            root.pane12.setVisible(false);
             primaryStage.setScene(scene1);
             primaryStage.show();
             game.reset();
@@ -259,7 +246,7 @@ public class TicTacToe extends Application {
             root.label0.setText(String.valueOf(oCount));
         });
         root.imageView18.setOnMouseClicked((MouseEvent event) -> {
-            root.pane11.setVisible(false);
+            root.pane12.setVisible(false);
             eventFlag2 = true;
             root.imageView8.setOpacity(1.0);
             root.imageView9.setOpacity(1.0);
@@ -281,18 +268,26 @@ public class TicTacToe extends Application {
             System.exit(0);
         });
         root.imageView8.setOnMouseClicked((MouseEvent event) -> {
-            if (eventFlag2) {
-                game.reset();
+            root.pane9.setVisible(false);
+            root.lines[game.board.getWinnerLine() - 1].setVisible(false);
+             game.reset();
                 redraw();
-
-            }
         });
 
         root.imageView110.setOnMouseClicked(event -> {
-            root.pane12.setVisible(false);
-            netGame.reset();
+            eventFlag2 = true;
+            root.imageView8.setOpacity(1.0);
+            root.imageView9.setOpacity(1.0);
+            root.imageView12.setOpacity(1.0);
+            root.pane13.setVisible(false);
             primaryStage.setScene(scene1);
             primaryStage.show();
+            game.reset();
+            redraw();
+            oCount = 0;
+            xCount = 0;
+            root.label.setText(String.valueOf(xCount));
+            root.label0.setText(String.valueOf(oCount));
         });
 
         ThreadGroup currentGroup = Thread.currentThread().getThreadGroup();
@@ -332,13 +327,15 @@ public class TicTacToe extends Application {
             }
         }
         if (game.isWinner()) {
+           root.pane10.setVisible(true);
+            root.lines[game.board.getWinnerLine() - 1].setVisible(true);
             eventFlag2 = false;
             root.imageView8.setOpacity(0.2);
             root.imageView9.setOpacity(0.2);
             root.imageView12.setOpacity(0.2);
             root.gridPane.setOpacity(0.2);
-            root.pane9.setVisible(true);
             root.imageView14.setImage(new Image(getClass().getResource("ok.png").toExternalForm()));
+            root.pane9.setVisible(true);
             switch (userChoice) {
                 case 0:
                     if (game.currentPlayer.icon == Board.State.X) {
@@ -426,7 +423,7 @@ public class TicTacToe extends Application {
 
         } else if (game.isFull()) {
             eventFlag2 = false;
-            root.pane10.setVisible(true);
+            root.pane11.setVisible(true);
             root.imageView8.setOpacity(0.2);
             root.imageView9.setOpacity(0.2);
             root.imageView12.setOpacity(0.2);
@@ -553,7 +550,7 @@ public class TicTacToe extends Application {
                                     Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex1);
 
                                 }
-                                root.pane12.setVisible(true);
+                                root.pane13.setVisible(true);
                                 root.text1.setText("Your Opponent is disconnected");
 
                             } catch (SocketException ex) {
@@ -565,7 +562,7 @@ public class TicTacToe extends Application {
                                     Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex1);
 
                                 }
-                                root.pane12.setVisible(true);
+                                root.pane13.setVisible(true);
                                 root.text1.setText("Your Opponent is disconnected");
 
                             } catch (IOException ex) {
@@ -577,7 +574,7 @@ public class TicTacToe extends Application {
                                     Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex1);
 
                                 }
-                                root.pane12.setVisible(true);
+                                root.pane13.setVisible(true);
                                 root.text1.setText("Your Opponent is disconnected");
 
                             }

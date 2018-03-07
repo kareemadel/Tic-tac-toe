@@ -25,6 +25,7 @@ public class Board implements Serializable {
 
     private int moveCount;
     private boolean gameOver;
+    private int winnerLine;
     
     /**
      * movesDone is a HashMap 
@@ -70,6 +71,7 @@ public class Board implements Serializable {
         playersTurn = State.X;
         winner = State.Blank;
         initialize();
+        winnerLine = 0;
     }
 
     /**
@@ -110,10 +112,15 @@ public class Board implements Serializable {
         }
 
         // Check for a winner.
-        checkRow(y);
-        checkColumn(x);
-        checkDiagonalFromTopLeft(x, y);
-        checkDiagonalFromTopRight(x, y);
+        if (checkRow(y)) {
+            winnerLine = y + 4;
+        } else if (checkColumn(x)) {
+            winnerLine = x + 1;
+        } else if (checkDiagonalFromTopLeft(x, y)) {
+            winnerLine = 7;
+        } else if (checkDiagonalFromTopRight(x, y)) {
+            winnerLine = 8;
+        }
 
         playersTurn = (playersTurn == State.X) ? State.O : State.X;
         return true;
@@ -166,32 +173,38 @@ public class Board implements Serializable {
      * Checks the specified row to see if there is a winner.
      * @param row       the row to check
      */
-    private void checkRow (int row) {
+     private boolean checkRow(int row) {
+        boolean result = false;
         for (int i = 1; i < BOARD_WIDTH; i++) {
-            if (board[row][i] != board[row][i-1]) {
+            if (board[row][i] != board[row][i - 1]) {
                 break;
             }
-            if (i == BOARD_WIDTH -1) {
+            if (i == BOARD_WIDTH - 1) {
                 winner = playersTurn;
                 gameOver = true;
+                result = true;
             }
         }
+        return result;
     }
 
     /**
      * Checks the specified column to see if there is a winner.
      * @param column    the column to check
      */
-    private void checkColumn (int column) {
+    private boolean checkColumn(int column) {
+        boolean result = false;
         for (int i = 1; i < BOARD_WIDTH; i++) {
-            if (board[i][column] != board[i-1][column]) {
+            if (board[i][column] != board[i - 1][column]) {
                 break;
             }
-            if (i == BOARD_WIDTH -1) {
+            if (i == BOARD_WIDTH - 1) {
                 winner = playersTurn;
                 gameOver = true;
+                result = true;
             }
         }
+        return result;
     }
 
     /**
@@ -199,18 +212,21 @@ public class Board implements Serializable {
      * @param x         the x coordinate of the most recently played move
      * @param y         the y coordinate of the most recently played move
      */
-    private void checkDiagonalFromTopLeft (int x, int y) {
+     private boolean checkDiagonalFromTopLeft(int x, int y) {
+        boolean result = false;
         if (x == y) {
             for (int i = 1; i < BOARD_WIDTH; i++) {
-                if (board[i][i] != board[i-1][i-1]) {
+                if (board[i][i] != board[i - 1][i - 1]) {
                     break;
                 }
-                if (i == BOARD_WIDTH -1) {
+                if (i == BOARD_WIDTH - 1) {
                     winner = playersTurn;
                     gameOver = true;
+                    result = true;
                 }
             }
         }
+        return result;
     }
 
     /**
@@ -218,18 +234,21 @@ public class Board implements Serializable {
      * @param x     the x coordinate of the most recently played move
      * @param y     the y coordinate of the most recently played move
      */
-    private void checkDiagonalFromTopRight (int x, int y) {
-        if (BOARD_WIDTH -1-x == y) {
+    private boolean checkDiagonalFromTopRight(int x, int y) {
+        boolean result = false;
+        if (BOARD_WIDTH - 1 - x == y) {
             for (int i = 1; i < BOARD_WIDTH; i++) {
-                if (board[BOARD_WIDTH -1-i][i] != board[BOARD_WIDTH -i][i-1]) {
+                if (board[BOARD_WIDTH - 1 - i][i] != board[BOARD_WIDTH - i][i - 1]) {
                     break;
                 }
-                if (i == BOARD_WIDTH -1) {
+                if (i == BOARD_WIDTH - 1) {
                     winner = playersTurn;
                     gameOver = true;
+                    result = true;
                 }
             }
         }
+        return result;
     }
 
     /**
@@ -251,7 +270,13 @@ public class Board implements Serializable {
         board.gameOver          = this.gameOver;
         return board;
     }
-    
+     /**
+     * Get the number of the winner line
+     * @return integer, representing the winner line
+     */
+    public int getWinnerLine() {
+        return winnerLine;
+    }
     /**
      * Get the Number of moves done so far.
      * @return      the number of moves done as integer
