@@ -190,6 +190,25 @@
                   </ImageView>
                </children>
             </Pane>
+            <Pane layoutX="135.0" layoutY="225.0" prefHeight="182.0" prefWidth="425.0" visible="false">
+               <children>
+                  <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#6795c2" height="182.0" stroke="#4074a7" strokeType="INSIDE" strokeWidth="7.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);" width="425.0" />
+                  <ImageView fitHeight="43.0" fitWidth="60.0" layoutX="192.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0) dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);">
+                     <image>
+                        <Image url="@ok.png" />
+                     </image>
+                  </ImageView>
+                  <Pane layoutX="30.0" layoutY="24.0" prefHeight="87.0" prefWidth="366.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 30, 0.5, 0, 0); -fx-background-color: #4074a7;">
+                     <children>
+                        <Text fill="#f2ecec" layoutX="9.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="501.72948837280273">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>

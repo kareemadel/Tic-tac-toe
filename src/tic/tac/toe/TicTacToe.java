@@ -183,6 +183,22 @@ public class TicTacToe extends Application {
                 root.imageView12.setOpacity(0.2);
             }
         });
+        root.imageView110.setOnMouseClicked((MouseEvent event) -> {
+            eventFlag2 = true;
+            root.imageView8.setOpacity(1.0);
+            root.imageView9.setOpacity(1.0);
+            root.imageView12.setOpacity(1.0);
+            root.pane10.setVisible(false);
+            primaryStage.hide();
+            primaryStage.setScene(scene1);
+            primaryStage.show();
+            game.reset();
+            redraw();
+            oCount = 0;
+            xCount = 0;
+            root.label.setText(String.valueOf(xCount));
+            root.label0.setText(String.valueOf(oCount));
+          });
         root.imageView14.setOnMouseClicked((MouseEvent event) -> {
             eventFlag2 = true;
             root.imageView8.setOpacity(1.0);
@@ -350,13 +366,23 @@ public class TicTacToe extends Application {
                             System.out.println(xCount);
                             xCount++;
                             System.out.println(xCount);
-                            root.label0.setText(String.valueOf(xCount));
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    root.label0.setText(String.valueOf(xCount));
+                                }
+                            });
                         } else {
                             System.out.println("o won");
                             System.out.println(oCount);
                             oCount++;
                             System.out.println(oCount);
-                            root.label.setText(String.valueOf(oCount));
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    root.label.setText(String.valueOf(oCount));
+                                }
+                            });
                         }
                         System.out.println(xCount);
                         System.out.println(oCount);

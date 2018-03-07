@@ -13,8 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-
-public class Tic extends AnchorPane {
+public  class Tic extends AnchorPane {
 
     protected final Pane pane;
     protected final GridPane gridPane;
@@ -77,6 +76,11 @@ public class Tic extends AnchorPane {
     protected final ImageView imageView17;
     protected final ImageView imageView18;
     protected final ImageView imageView19;
+    protected final Pane pane12;
+    protected final Rectangle rectangle1;
+    protected final ImageView imageView110;
+    protected final Pane pane13;
+    protected final Text text1;
 protected final ImageView[] cells;
 
     public Tic() {
@@ -142,6 +146,11 @@ protected final ImageView[] cells;
         imageView17 = new ImageView();
         imageView18 = new ImageView();
         imageView19 = new ImageView();
+        pane12 = new Pane();
+        rectangle1 = new Rectangle();
+        imageView110 = new ImageView();
+        pane13 = new Pane();
+        text1 = new Text();
 
         setId("AnchorPane");
         setPrefHeight(400.0);
@@ -560,6 +569,46 @@ protected final ImageView[] cells;
         imageView19.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
         imageView19.setImage(new Image(getClass().getResource("exit.png").toExternalForm()));
 
+        pane12.setLayoutX(135.0);
+        pane12.setLayoutY(225.0);
+        pane12.setPrefHeight(182.0);
+        pane12.setPrefWidth(425.0);
+        pane12.setVisible(false);
+
+        rectangle1.setArcHeight(30.0);
+        rectangle1.setArcWidth(30.0);
+        rectangle1.setFill(javafx.scene.paint.Color.valueOf("#6795c2"));
+        rectangle1.setHeight(182.0);
+        rectangle1.setStroke(javafx.scene.paint.Color.valueOf("#4074a7"));
+        rectangle1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
+        rectangle1.setStrokeWidth(7.0);
+        rectangle1.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
+        rectangle1.setWidth(425.0);
+
+        imageView110.setFitHeight(43.0);
+        imageView110.setFitWidth(60.0);
+        imageView110.setLayoutX(192.0);
+        imageView110.setLayoutY(125.0);
+        imageView110.setPickOnBounds(true);
+        imageView110.setPreserveRatio(true);
+        imageView110.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0) dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
+        imageView110.setImage(new Image(getClass().getResource("ok.png").toExternalForm()));
+
+        pane13.setLayoutX(30.0);
+        pane13.setLayoutY(24.0);
+        pane13.setPrefHeight(87.0);
+        pane13.setPrefWidth(366.0);
+        pane13.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 30, 0.5, 0, 0); -fx-background-color: #4074a7;");
+
+        text1.setFill(javafx.scene.paint.Color.valueOf("#f2ecec"));
+        text1.setLayoutX(9.0);
+        text1.setLayoutY(78.0);
+        text1.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+        text1.setStrokeWidth(0.0);
+        text1.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        text1.setWrappingWidth(501.72948837280273);
+        text1.setFont(new Font(21.0));
+
         gridPane.getColumnConstraints().add(columnConstraints);
         gridPane.getColumnConstraints().add(columnConstraints0);
         gridPane.getColumnConstraints().add(columnConstraints1);
@@ -620,6 +669,11 @@ protected final ImageView[] cells;
         pane11.getChildren().add(imageView18);
         pane11.getChildren().add(imageView19);
         pane.getChildren().add(pane11);
+        pane12.getChildren().add(rectangle1);
+        pane12.getChildren().add(imageView110);
+        pane13.getChildren().add(text1);
+        pane12.getChildren().add(pane13);
+        pane.getChildren().add(pane12);
         getChildren().add(pane);
     cells = new ImageView[] {imageView, imageView0, imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7};
 
