@@ -96,6 +96,8 @@ public class NetGame extends Game {
     }
 
     public void exit() throws IOException {
+//        this.response.close();
+//        this.client.close();
         this.gameSocket.close();
     }
 
@@ -105,5 +107,17 @@ public class NetGame extends Game {
 
     public void sendMessage(String s) throws IOException {
         this.client.writeBytes(s + "\n");
+    }
+    
+    public BufferedReader getResponse(){
+        return this.response;
+    }
+    
+    public DataOutputStream getClient(){
+        return this.client;
+    }
+    
+    public Socket getGameSocket(){
+        return this.gameSocket;
     }
 }

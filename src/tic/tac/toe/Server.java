@@ -40,12 +40,23 @@ public class Server extends Thread {
                 System.out.println("after accept");
                 // using server socket && creating game object
                 // initialize new game with the correct socket and host statu
+                System.out.println("before setting");
                 game.setConnection(connection);
                 game.setMyTurn(true);
                 game.setIsHost(true);
                 this.hasConnection = true;
+                System.out.println("after setting");
             } catch (IOException ex) {
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if (!listener.isClosed()) {
+                    try {
+                        listener.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                System.out.println("finally : "+listener.isClosed());
             }
         }
     }
