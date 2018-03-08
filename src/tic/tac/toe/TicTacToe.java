@@ -231,6 +231,7 @@ public class TicTacToe extends Application {
         root.imageView16.setOnMouseClicked((MouseEvent event) -> {
             eventFlag2 = true;
             root.pane11.setVisible(false);
+            root.pane13.setVisible(false);
             root.imageView8.setOpacity(1.0);
             root.gridPane.setOpacity(1.0);
             root.imageView9.setOpacity(1.0);
@@ -244,8 +245,18 @@ public class TicTacToe extends Application {
             xCount = 0;
             root.label.setText(String.valueOf(xCount));
             root.label0.setText(String.valueOf(oCount));
+             if (userChoice == 2) {
+                try {
+                    netGame.sendMessage("quit");
+                    netGame.exit();
+                    isClosing = true;
+                    System.out.println("Closing sockets from action event");
+                } catch (IOException ex) {
+                    Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
 
-        });
+                }
+
+             }});
         root.imageView17.setOnMouseClicked((MouseEvent event) -> {
             System.out.println("imageview17");
             if (userChoice == 2) {
@@ -325,6 +336,7 @@ public class TicTacToe extends Application {
             root.imageView9.setOpacity(1.0);
             root.imageView12.setOpacity(1.0);
             root.pane13.setVisible(false);
+            root.pane11.setVisible(false);
             primaryStage.setScene(scene1);
             primaryStage.show();
             game.reset();
@@ -607,6 +619,13 @@ public class TicTacToe extends Application {
                                 } else if (move.equals("reset")) {
                                     game.reset();
                                     root.pane9.setVisible(false);
+                                    root.pane10.setVisible(false);
+                                    eventFlag2 = true;
+                                    root.imageView8.setOpacity(1.0);
+                                    root.imageView9.setOpacity(1.0);
+                                    root.imageView12.setOpacity(1.0);
+                                    root.gridPane.setOpacity(1.0);
+                                    root.pane11.setVisible(false);
                                     for (int i = 0; i < 8; i++) {
                                         root.lines[i].setVisible(false);
                                     }
