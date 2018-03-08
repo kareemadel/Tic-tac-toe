@@ -33,10 +33,12 @@ public class Client extends Thread {
         try {
             this.connection = new Socket(this.host, this.port);
             // initialize new game with the correct socket and host status
+            System.out.println("Before client Set");
             game.setConnection(this.connection);
             game.setMyTurn(false);
             game.setIsHost(false);
             game.isWaiting = false;
+            System.out.println("After client Set");
         } catch (IOException ex) {
             System.out.println("Connection to " + host + " failed!");
             isException = true;
