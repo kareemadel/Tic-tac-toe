@@ -40,7 +40,7 @@ public class TicTacToe extends Application {
     int port;
     Server server;
     Client client;
-    boolean canPlay, isClosing;
+    boolean canPlay, isClosing, isListening = false;
     String host;
     private Stage stage;
     private Scene scene, scene1;
@@ -51,7 +51,7 @@ public class TicTacToe extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
+        primaryStage.setTitle("Tice-Tac-Toe");
         stage = primaryStage;
         scene = new Scene(root, 699, 609);
         scene1 = new Scene(root1, 699, 609);
@@ -113,12 +113,28 @@ public class TicTacToe extends Application {
             root1.pane0.setVisible(false); // host or join options
             root1.imageView3.setOpacity(1.0);
             eventFlag1 = true;
+            try {
+                netGame.exit();
+            } catch (IOException ex) {
+                Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                isListening = false;
+                System.out.println("now closing host winde isClosing: " + isClosing);
+            }
         });
         root1.imageView7.setOnMouseClicked((MouseEvent event) -> {
             root1.pane8.setVisible(false);
             root1.pane0.setVisible(false);
             root1.imageView3.setOpacity(1.0);
             eventFlag1 = true;
+            try {
+                netGame.exit();
+            } catch (IOException ex) {
+                Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                isListening = false;
+                System.out.println("now closing host winde isClosing: " + isClosing);
+            }
         });
         root1.imageView8.setOnMouseClicked((MouseEvent event) -> {
             root1.pane8.setVisible(true);
@@ -304,6 +320,7 @@ public class TicTacToe extends Application {
 
         root.imageView110.setOnMouseClicked(event -> {
             eventFlag2 = true;
+            root.gridPane.setOpacity(1.0);
             root.imageView8.setOpacity(1.0);
             root.imageView9.setOpacity(1.0);
             root.imageView12.setOpacity(1.0);
@@ -499,23 +516,27 @@ public class TicTacToe extends Application {
                                 root1.text4.setText(port);
                                 game = server.game;
                                 netGame = server.game;
-                                while (server.connection() == null || server.game.getClient() == null || server.game.getResponse() == null) {
+                                isListening = true;
+                                while (isListening && (server.connection() == null || server.game.getClient() == null || server.game.getResponse() == null)) {
+                                    System.out.println(isListening);
                                     System.out.println(server.connection());
                                     System.out.println(server.game.getClient());
                                     System.out.println(server.game.getResponse());
                                 }
-                                Platform.runLater(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //pane8 join popup
-                                        eventFlag1 = true;
-                                        root1.imageView3.setOpacity(1);
-                                        root1.pane3.setVisible(false);
-                                        stage.setScene(scene);
-                                        stage.show();
-                                        root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
-                                    }
-                                });
+                                if (server.connection() != null) {
+                                    Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //pane8 join popup
+                                            eventFlag1 = true;
+                                            root1.imageView3.setOpacity(1);
+                                            root1.pane3.setVisible(false);
+                                            stage.setScene(scene);
+                                            stage.show();
+                                            root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
+                                        }
+                                    });
+                                }
                             } catch (IOException ex) {
                                 Logger.getLogger(TicTacToe.class
                                         .getName()).log(Level.SEVERE, null, ex);
@@ -535,7 +556,9 @@ public class TicTacToe extends Application {
                             canPlay = true;
                             game = client.game;
                             netGame = client.game;
-                            while (client.connection() == null || client.game.getClient() == null || client.game.getResponse() == null) {
+                            isListening = true;
+                            while (isListening && (client.connection() == null || client.game.getClient() == null || client.game.getResponse() == null)) {
+                                System.out.println(isListening);
                                 System.out.println(client.connection());
                                 System.out.println(client.game.getClient());
                                 System.out.println(client.game.getResponse());
@@ -547,20 +570,22 @@ public class TicTacToe extends Application {
                                 }
                             }
                             System.out.println("client out");
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    eventFlag1 = true;
-                                    root1.imageView3.setOpacity(1);
-                                    root1.pane8.setVisible(false);
-                                    root1.textField0.setText("");
-                                    root1.textField1.setText("");
-                                    stage.setScene(scene);
-                                    stage.show();
-                                    root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
+                            if (client.connection() != null) {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        eventFlag1 = true;
+                                        root1.imageView3.setOpacity(1);
+                                        root1.pane8.setVisible(false);
+                                        root1.textField0.setText("");
+                                        root1.textField1.setText("");
+                                        stage.setScene(scene);
+                                        stage.show();
+                                        root.imageView10.setImage(new Image(TicTacToe.this.getClass().getResource("online.png").toExternalForm()));
 
-                                }
-                            });
+                                    }
+                                });
+                            }
                         }
 
                         String move = null;
@@ -574,6 +599,11 @@ public class TicTacToe extends Application {
                                     root.pane13.setVisible(!isClosing);
                                     isClosing = false;
                                     root.text1.setText("Your Opponent is disconnected");
+                                    eventFlag2 = false;
+                                    root.imageView8.setOpacity(0.2);
+                                    root.imageView9.setOpacity(0.2);
+                                    root.gridPane.setOpacity(0.2);
+
                                 } else if (move.equals("reset")) {
                                     game.reset();
                                     root.pane9.setVisible(false);
@@ -588,6 +618,10 @@ public class TicTacToe extends Application {
                                     root.pane13.setVisible(!isClosing);
                                     isClosing = false;
                                     root.text1.setText("Your Opponent is disconnected");
+                                    eventFlag2 = false;
+                                    root.imageView8.setOpacity(0.2);
+                                    root.imageView9.setOpacity(0.2);
+                                    root.gridPane.setOpacity(0.2);
                                 } else {
                                     netGame.move(Integer.parseInt(move));
                                     redraw();
@@ -604,6 +638,10 @@ public class TicTacToe extends Application {
                                 root.pane13.setVisible(!isClosing);
                                 isClosing = false;
                                 root.text1.setText("Your Opponent is disconnected");
+                                eventFlag2 = false;
+                                root.imageView8.setOpacity(0.2);
+                                root.imageView9.setOpacity(0.2);
+                                root.gridPane.setOpacity(0.2);
 
                             } catch (SocketException ex) {
                                 Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
@@ -617,6 +655,10 @@ public class TicTacToe extends Application {
                                 root.pane13.setVisible(!isClosing);
                                 isClosing = false;
                                 root.text1.setText("Your Opponent is disconnected");
+                                eventFlag2 = false;
+                                root.imageView8.setOpacity(0.2);
+                                root.imageView9.setOpacity(0.2);
+                                root.gridPane.setOpacity(0.2);
 
                             } catch (IOException ex) {
                                 Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
@@ -630,6 +672,10 @@ public class TicTacToe extends Application {
                                 root.pane13.setVisible(!isClosing);
                                 isClosing = false;
                                 root.text1.setText("Your Opponent is disconnected");
+                                eventFlag2 = false;
+                                root.imageView8.setOpacity(0.2);
+                                root.imageView9.setOpacity(0.2);
+                                root.gridPane.setOpacity(0.2);
 
                             }
 
@@ -649,5 +695,18 @@ public class TicTacToe extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        if (userChoice == 2) {
+            isListening = false;
+            try {
+                netGame.exit();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

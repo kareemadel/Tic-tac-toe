@@ -6,6 +6,7 @@
 package tic.tac.toe;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -30,7 +31,7 @@ public class Board implements Serializable {
     /**
      * movesDone is a HashMap 
      */
-    private HashMap<Integer,aMove> movesDone;
+    private ArrayList<AMove> movesDone;
 
     /**
      * Construct the Tic Tac Toe board.
@@ -38,7 +39,7 @@ public class Board implements Serializable {
     Board() {
         board = new State[BOARD_WIDTH][BOARD_WIDTH];
         movesAvailable = new HashSet<>();
-        movesDone = new HashMap<>();
+        movesDone = new ArrayList<>();
         moveCount = 1;
         reset();
     }
@@ -103,7 +104,7 @@ public class Board implements Serializable {
 
         moveCount++;
         movesAvailable.remove(y * BOARD_WIDTH + x);
-        movesDone.put(moveCount, new aMove(y * BOARD_WIDTH + x, board[y][x]));
+        movesDone.add(new AMove(y * BOARD_WIDTH + x, board[y][x]));
 
         // The game is a draw.
         if (moveCount == BOARD_WIDTH * BOARD_WIDTH) {
@@ -281,13 +282,13 @@ public class Board implements Serializable {
      * Get the Number of moves done so far.
      * @return      the number of moves done as integer
      */
-    public int movesDone() {
-        return moveCount;
+    public ArrayList<AMove> movesDone() {
+        return movesDone;
     }
-    class aMove implements Serializable {
+    class AMove implements Serializable {
         int pos;
         State stat;
-        public aMove(int pos, State stat) {
+        public AMove(int pos, State stat) {
             this.pos = pos;
             this.stat = stat;
         }

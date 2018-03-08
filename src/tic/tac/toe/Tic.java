@@ -362,6 +362,7 @@ public class Tic extends AnchorPane {
         imageView12.setPreserveRatio(true);
         imageView12.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
         imageView12.setImage(new Image(getClass().getResource("replay.png").toExternalForm()));
+//        imageView12.setVisible(false);
 
         pane9.setLayoutX(143.0);
         pane9.setLayoutY(130.0);
@@ -574,35 +575,35 @@ public class Tic extends AnchorPane {
         imageView19.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
         imageView19.setImage(new Image(getClass().getResource("exit.png").toExternalForm()));
 
-        pane13.setLayoutX(135.0);
-        pane13.setLayoutY(225.0);
-        pane13.setPrefHeight(182.0);
-        pane13.setPrefWidth(425.0);
+        pane13.setLayoutX(58.0);
+        pane13.setLayoutY(220.0);
+        pane13.setPrefHeight(300.0);
+        pane13.setPrefWidth(588.0);
         pane13.setVisible(false);
 
         rectangle1.setArcHeight(30.0);
         rectangle1.setArcWidth(30.0);
         rectangle1.setFill(javafx.scene.paint.Color.valueOf("#6795c2"));
-        rectangle1.setHeight(182.0);
+        rectangle1.setHeight(300.0);
         rectangle1.setStroke(javafx.scene.paint.Color.valueOf("#4074a7"));
         rectangle1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         rectangle1.setStrokeWidth(7.0);
         rectangle1.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
-        rectangle1.setWidth(425.0);
+        rectangle1.setWidth(588.0);
 
         imageView110.setFitHeight(43.0);
         imageView110.setFitWidth(60.0);
-        imageView110.setLayoutX(192.0);
-        imageView110.setLayoutY(125.0);
+        imageView110.setLayoutX(273.0);
+        imageView110.setLayoutY(221.0);
         imageView110.setPickOnBounds(true);
         imageView110.setPreserveRatio(true);
         imageView110.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0) dropshadow(three-pass-box, rgba(0, 0, 0, 0.32), 30, 0.5, 0, 0);");
         imageView110.setImage(new Image(getClass().getResource("ok.png").toExternalForm()));
 
-        pane14.setLayoutX(30.0);
-        pane14.setLayoutY(24.0);
-        pane14.setPrefHeight(87.0);
-        pane14.setPrefWidth(366.0);
+        pane14.setLayoutX(36.0);
+        pane14.setLayoutY(28.0);
+        pane14.setPrefHeight(168.0);
+        pane14.setPrefWidth(519.0);
         pane14.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 30, 0.5, 0, 0); -fx-background-color: #4074a7;");
 
         text1.setFill(javafx.scene.paint.Color.valueOf("#f2ecec"));
