@@ -214,7 +214,9 @@ public class TicTacToe extends Application {
         });
         root.imageView16.setOnMouseClicked((MouseEvent event) -> {
             eventFlag2 = true;
+            root.pane11.setVisible(false);
             root.imageView8.setOpacity(1.0);
+            root.gridPane.setOpacity(1.0);
             root.imageView9.setOpacity(1.0);
             root.imageView12.setOpacity(1.0);
             root.pane10.setVisible(false);
