@@ -3,6 +3,10 @@ Introduction
 -----------
 Desktop application that implements the famous game tic-tac-toe. JavaFX is used for the GUI and search algorithm is used to find the optimum move for the computer. You can play against a friend over local network or on the same machine or you can play against the computer.
 
+How To Build
+--------------
+This project is built with Netbeans, use it to open, build and run the project.
+
 How To Play
 -----------
 The first thing you see when you open the game is the main menu.
